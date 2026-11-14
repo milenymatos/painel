@@ -208,7 +208,7 @@ textarea{min-height:92px;resize:vertical}
 .ig-vazio svg{width:124px;height:84px}
 .ig-vazio h2{font-family:var(--serif);font-weight:600;font-size:28px;line-height:1.1;color:var(--violeta)}
 .ig-vazio p{color:var(--sec);margin-top:8px;max-width:68ch}
-.ig-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;margin-top:20px}
+.ig-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:20px}
 .ig{padding:22px 20px 20px;display:flex;flex-direction:column;min-height:262px}
 .ig .k-n{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--sec)}
 .ig h3{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sec);margin-top:2px;min-height:2.9em;line-height:1.45}
@@ -418,9 +418,9 @@ td .mudo{color:var(--sec)}
 /* ---------- responsivo ---------- */
 @media (max-height:720px){.side-pe p{display:none}}
 @media (max-width:1280px){
-  .kpis,.ig-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
-  .kpis .kpi,.ig-grid .ig{grid-column:span 2}
-  .kpis .kpi:nth-child(n+4),.ig-grid .ig:nth-child(n+4){grid-column:span 3}
+  .kpis{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .kpis .kpi{grid-column:span 2}
+  .kpis .kpi:nth-child(n+4){grid-column:span 3}
   .ideias{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:1080px){
@@ -785,7 +785,7 @@ body.arrastando-cal,body.arrastando-cal *{cursor:grabbing!important;user-select:
             </svg>
             <div>
               <h2>Ainda sem números por aqui.</h2>
-              <p>A Sol preenche estes cinco indicadores a partir do Instagram Insights, por semana ou em blocos de 30 dias. Até lá, cada cartão mostra “sem dado”: o painel não estima, não arredonda e não inventa número. Quando a primeira semana entrar, a comparação com o período anterior aparece sozinha.</p>
+              <p>A Sol preenche estes indicadores a partir do Instagram Insights, por semana ou em blocos de 30 dias. Visualizações, visualizadores e interações aparecem quando a API 2.2.0 estiver no ar (ou assim que houver número registrado). Até lá, cada cartão mostra “sem dado”: o painel não estima, não arredonda e não inventa número. Quando a primeira semana entrar, a comparação com o período anterior aparece sozinha.</p>
             </div>
           </div>
           <div class="card ig-seg" id="ig-seg" hidden></div>
@@ -1003,7 +1003,10 @@ const IG = [
   { nome: "Salvamentos", oq: "Vezes em que um post foi guardado para rever." },
   { nome: "Compartilhamentos", oq: "Envios de posts para outras pessoas." },
   { nome: "Seguidores ganhos (líquido)", oq: "Novos seguidores menos quem deixou de seguir." },
-  { nome: "Comentários RODA/SER", oq: "Comentários com as palavras-chave das campanhas." }
+  { nome: "Comentários RODA/SER", oq: "Comentários com as palavras-chave das campanhas." },
+  { nome: "Visualizações", oq: "Vezes em que o conteúdo foi reproduzido ou visto." },
+  { nome: "Visualizadores", oq: "Contas únicas que assistiram aos vídeos ou stories." },
+  { nome: "Interações", oq: "Soma de curtidas, comentários, salvamentos e compartilhamentos." }
 ];
 
 /* ---------- ícones ---------- */
@@ -1042,14 +1045,15 @@ const quem = (n) => `<span class="quem"><i aria-hidden="true">${esc(n[0])}</i>${
 
 /* ---------- dados reais: ponte com a API ---------- */
 const STATUS_TAREFA = ["A fazer", "Fazendo", "Feito", "Bloqueada"];
-const METRICAS = ["alcance", "salvamentos", "compartilhamentos", "seguidores_ganhos_liquido", "comentarios_roda_ser"];
+const METRICAS = ["alcance", "salvamentos", "compartilhamentos", "seguidores_ganhos_liquido", "comentarios_roda_ser", "visualizacoes", "visualizadores", "interacoes"];
+const METRICAS_NOVAS = ["visualizacoes", "visualizadores", "interacoes"];
 const vazio = () => ({ posts: [], clientes: [], ideias: [], tarefas: [], instagram: [], acomp: [] });
 let db = vazio();
 let usuario = { nome: "", papel: "", email: "" };
 let carregado = false;
 // Recursos novos (acompanhamentos, data de publicação, Instagram por período) só aparecem com a API 2.1.0+.
 const API_MIN_NOVA = "2.1.0";
-let API_VERSAO = "", API_NOVA = false, igAuto = false;
+let API_VERSAO = "", API_NOVA = false, API_RECURSOS = [], igAuto = false;
 const verGE = (a, b) => { const x = String(a || "0").split(".").map(Number), y = String(b).split(".").map(Number); for (let i = 0; i < 3; i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); } return true; };
 const TIPOS_ACOMP = ["Contato", "Sessão agendada", "Retorno", "Indicação", "Outro"];
 const STATUS_ACOMP = ["Aberto", "Aguardando resposta", "Concluído"];
@@ -1198,7 +1202,7 @@ function recarregar(silencioso) {
       META_CLIENTES = Number(r.config.meta_clientes) || META_CLIENTES;
       if (Array.isArray(r.config.pessoas) && r.config.pessoas.length) PESSOAS.splice(0, PESSOAS.length, ...r.config.pessoas);
     }
-    API_VERSAO = r.versao || "2.0.0"; API_NOVA = verGE(API_VERSAO, API_MIN_NOVA);
+    API_VERSAO = r.versao || "2.0.0"; API_NOVA = verGE(API_VERSAO, API_MIN_NOVA); API_RECURSOS = r.recursos || [];
     db = { posts: (r.posts || []).map(dePost), ideias: (r.ideias || []).map(deIdeia), clientes: (r.clientes || []).map(deCliente),
       tarefas: (r.tarefas || []).map(deTarefa), instagram: (r.instagram || []).slice().sort((a, b) => String(a.semana_inicio).localeCompare(String(b.semana_inicio))),
       acomp: API_NOVA ? (r.acompanhamentos || []).map(deAcomp) : [] };
@@ -1466,6 +1470,11 @@ function spark(vals) {
   const pts = v.map((x, i) => (x == null ? null : [2 + (196 * i) / (v.length - 1), 22 - (18 * (x - min)) / amp])).filter(Boolean);
   return `<path d="M${pts.map((p) => p[0].toFixed(1) + " " + p[1].toFixed(1)).join("L")}" fill="none" stroke="#3C203F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
 }
+function igMetricaVisivel(k) {
+  if (METRICAS_NOVAS.indexOf(k) < 0) return true;
+  if (verGE(API_VERSAO, "2.2.0") || API_RECURSOS.indexOf("instagram_visualizacoes") >= 0) return true;
+  return db.instagram.some((w) => w[k] != null && w[k] !== "" && !isNaN(w[k]));
+}
 function rIG() {
   $$('[data-act="ig"]').forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === ui.ig)));
   const per = igPeriodos(), ant = per.ant;
@@ -1475,13 +1484,14 @@ function rIG() {
   const vz = $("#ig-vazio"); if (vz) vz.hidden = tem;
   const ultimo = db.instagram[db.instagram.length - 1];
   const ul = $("#ig-ultimo"); if (ul) ul.textContent = ultimo ? `${fNum(String(ultimo.preenchido_em || ultimo.semana_inicio).slice(0, 10))}${ultimo.preenchido_por ? " por " + ultimo.preenchido_por : ""}` : "sem dado";
-  $("#ig-grid").innerHTML = IG.map((m, i) => {
-    const k = METRICAS[i], a = per.atual(k), b = per.antV(k);
+  const vis = IG.map((m, i) => ({ m, k: METRICAS[i] })).filter((x) => igMetricaVisivel(x.k));
+  $("#ig-grid").innerHTML = vis.map(({ m, k }, n) => {
+    const a = per.atual(k), b = per.antV(k);
     let cmp = "sem dado";
     if (a != null && b != null) { const d = a - b; cmp = b ? `${d >= 0 ? "+" : "−"}${Math.abs(Math.round((d / Math.abs(b)) * 100))}%` : `${d >= 0 ? "+" : "−"}${fMil(Math.abs(d))}`; }
     return `
     <article class="card ig">
-      <span class="k-n">Nº ${z2(i + 1)}</span>
+      <span class="k-n">Nº ${z2(n + 1)}</span>
       <h3>${esc(m.nome)}</h3>
       ${a != null ? `<div class="tr" style="opacity:1;font-size:clamp(34px,3.2vw,50px);line-height:1">${fMil(a)}</div>` : `<div class="tr" aria-hidden="true">—</div><span class="tag linha sd">sem dado</span>`}
       <p class="oq">${esc(m.oq)}</p>
