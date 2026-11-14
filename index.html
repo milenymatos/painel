@@ -549,6 +549,73 @@ td .mudo{color:var(--sec)}
 }
 @media print{.side,.tabs,.topo-m,.util .btn,.camada,.toast{display:none!important}.app{display:block}body{background-image:none}}
 [tabindex="-1"]:focus:not(:focus-visible),h1[tabindex="-1"]:focus{outline:none}
+/* ---------- v4: revisão, decisão, links, calendário, acompanhamentos, Instagram ---------- */
+.aguarda b{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:var(--creme);color:var(--ameixa);font-size:12px;font-weight:600}
+.p-rev{margin-top:18px}
+.p-rev h3,.p-decide h3{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sec);margin-bottom:8px}
+.prev{display:flex;flex-direction:column;gap:12px}
+.prev-m{border-radius:var(--raio-s);overflow:hidden;background:var(--violeta);border:1px solid var(--linha);aspect-ratio:var(--ar,16/9);width:100%;margin-inline:auto}
+.prev-m.vert{--ar:9/16;width:min(100%,250px)}
+.prev-m.quad{--ar:4/5;width:min(100%,340px)}
+.prev-m iframe,.prev-m img{display:block;width:100%;height:100%;border:0;object-fit:contain;background:var(--violeta)}
+.prev-l{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--raio-s);background:var(--papel);border:1px solid var(--linha);text-decoration:none;color:var(--carvao);transition:border-color .18s}
+.prev-l:hover{border-color:var(--ameixa)}
+.prev-l .pl-i{flex:none;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--ameixa);color:var(--creme);font-family:var(--serif);font-weight:600;font-size:18px}
+.prev-l .pl-t{min-width:0;flex:1}
+.prev-l .pl-t b{display:block;font-weight:500;font-size:14.5px}
+.prev-l .pl-t span{display:block;font-size:12.5px;color:var(--sec);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prev-l .icone{color:var(--ameixa);flex:none}
+.prev-vazio{font-size:14px;color:var(--sec);padding:12px 14px;border-radius:var(--raio-s);border:1px dashed var(--linha-forte)}
+.p-decide{margin-top:18px;padding:16px;border-radius:var(--raio-s);background:var(--lav-22);border-left:2px solid var(--cobre)}
+.p-decide label{display:block;font-size:13px;font-weight:500;color:var(--carvao);margin-bottom:6px}
+.p-decide label .aj{font-weight:400;color:var(--sec)}
+.p-decide textarea{min-height:84px}
+.p-decide .erro{margin-top:6px}
+.p-dec-b{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.p-dec-b .btn{flex:1}
+.p-espera{margin-top:18px;font-size:14px;color:var(--sec);display:flex;gap:8px;align-items:center}
+.links-l{display:flex;flex-direction:column;gap:8px}
+.link-l{display:flex;gap:8px;align-items:center}
+.link-l input{flex:1;min-width:0}
+.link-l .btn-ic{width:40px;height:40px;flex:none}
+.campo .mais-l{align-self:flex-start;margin-top:2px}
+.cal-cell.alvo-d{background:var(--lav-22);box-shadow:inset 0 0 0 1.5px var(--ameixa)}
+.cal-grid .chip[data-arrasta]{cursor:grab}
+.chip.arrastando{opacity:.45}
+.chip.fantasma{position:fixed;left:0;top:0;z-index:90;pointer-events:none;box-shadow:var(--sombra-alta);opacity:.96;transform-origin:0 0}
+body.arrastando-cal,body.arrastando-cal *{cursor:grabbing!important;user-select:none}
+.cal-agenda{display:none}
+.cal-leg .dica{margin-left:auto;font-style:italic}
+.prox-c{margin-bottom:18px;padding:20px 22px}
+.prox-c .pc-h{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;align-items:baseline}
+.prox-c h2{font-family:var(--serif);font-weight:600;font-size:26px;line-height:1.1;color:var(--violeta)}
+.prox-c .lista{margin-top:6px}
+.acomp-res{display:flex;gap:6px 12px;flex-wrap:wrap;align-items:center;margin-top:14px;font-size:13.5px;color:var(--sec)}
+.acomp-tl{list-style:none;margin:12px 0 6px 4px;padding:0;border-left:1.5px solid var(--linha-forte)}
+.acomp-tl li{position:relative;padding:0 0 16px 18px}
+.acomp-tl li:last-child{padding-bottom:4px}
+.acomp-tl li::before{content:"";position:absolute;left:-5px;top:7px;width:8px;height:8px;border-radius:50%;background:var(--ameixa)}
+.acomp-tl li.feito::before{background:var(--papel);box-shadow:inset 0 0 0 1.5px var(--ameixa)}
+.acomp-tl .a-h{display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--sec)}
+.acomp-tl .a-h b{font-family:var(--serif);font-size:19px;font-weight:600;color:var(--violeta);font-variant-numeric:lining-nums}
+.acomp-tl p{font-size:14px;margin-top:4px;color:var(--carvao)}
+.acomp-tl .a-a{display:flex;gap:4px 10px;flex-wrap:wrap;margin-top:2px}
+.acomp-tl .vz{padding-left:18px;font-size:14px;color:var(--sec)}
+.cli-ac{font-size:13px;color:var(--sec);white-space:normal;min-width:150px}
+.cli-ac b{font-weight:500;color:var(--carvao)}
+.ig-seg{display:flex;align-items:baseline;gap:6px 18px;flex-wrap:wrap;padding:18px 22px;margin-bottom:18px}
+.ig-seg .l{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sec);flex-basis:100%}
+.ig-seg .n{font-family:var(--serif);font-weight:600;font-size:46px;line-height:1;color:var(--violeta);font-variant-numeric:lining-nums}
+.ig-seg .d{font-size:13.5px;color:var(--sec)}
+.ig-per{font-size:13.5px;color:var(--sec);margin:-4px 0 14px}
+.ig-per b{font-weight:500;color:var(--carvao)}
+@media (max-width:900px){
+  .cal-agenda{display:block;padding:8px 14px 10px;border-top:1px solid var(--linha)}
+  .cal-agenda h3{font-family:var(--serif);font-weight:600;font-size:22px;color:var(--violeta);margin:12px 0 8px}
+  .cal-agenda h4{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sec);margin:12px 0 6px}
+  .p-dec-b .btn{min-height:46px}
+  .cal-leg .dica{display:none}
+}
 /* ---------- entrada com chave pessoal ---------- */
 .portao{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:24px;background-color:var(--creme);background-image:var(--grao),var(--manchas)}
 .portao[hidden]{display:none}
@@ -626,6 +693,7 @@ td .mudo{color:var(--sec)}
       <div class="cont-max">
         <div class="util">
           <span class="hoje" id="hoje-rot"></span>
+          <button class="btn pri peq aguarda" type="button" data-act="aguarda" id="b-aguarda" hidden>Aguardando você <b id="b-aguarda-n">0</b></button>
           <span class="selo" id="selo-sinc" title="Dados da planilha da Mileny">Carregando…</span>
           <button class="btn fan peq" type="button" data-act="atualizar">Atualizar</button>
           <button class="btn fan peq" type="button" data-act="sair" title="Esquecer a chave neste navegador">Sair</button>
@@ -704,7 +772,7 @@ td .mudo{color:var(--sec)}
               </div>
               <div class="seg" role="group" aria-label="Período das métricas">
                 <button type="button" data-act="ig" data-v="semana" aria-pressed="true">Semana</button>
-                <button type="button" data-act="ig" data-v="mes" aria-pressed="false">Mês</button>
+                <button type="button" data-act="ig" data-v="mes" aria-pressed="false">30 dias</button>
               </div>
             </div>
             <div class="fio" aria-hidden="true"></div>
@@ -717,11 +785,13 @@ td .mudo{color:var(--sec)}
             </svg>
             <div>
               <h2>Ainda sem números por aqui.</h2>
-              <p>A Sol preenche estes cinco indicadores toda semana, a partir do Instagram Insights. Até lá, cada cartão mostra “sem dado”: o painel não estima, não arredonda e não inventa número. Quando a primeira semana entrar, a comparação com o período anterior aparece sozinha.</p>
+              <p>A Sol preenche estes cinco indicadores a partir do Instagram Insights, por semana ou em blocos de 30 dias. Até lá, cada cartão mostra “sem dado”: o painel não estima, não arredonda e não inventa número. Quando a primeira semana entrar, a comparação com o período anterior aparece sozinha.</p>
             </div>
           </div>
+          <div class="card ig-seg" id="ig-seg" hidden></div>
+          <p class="ig-per" id="ig-per"></p>
           <div class="ig-grid" id="ig-grid"></div>
-          <p class="ig-pe"><span>Fonte: <b>Instagram Insights</b></span><span>Responsável: <b>Sol</b></span><span>Atualização: <b>semanal</b></span><span>Último preenchimento: <b id="ig-ultimo">sem dado</b></span></p>
+          <p class="ig-pe"><span>Fonte: <b>Instagram Insights</b></span><span>Responsável: <b>Sol</b></span><span>Atualização: <b>semanal ou 30 dias</b></span><span>Último preenchimento: <b id="ig-ultimo">sem dado</b></span></p>
         </section>
 
         <!-- ============ Nº 03 · CALENDÁRIO ============ -->
@@ -773,7 +843,7 @@ td .mudo{color:var(--sec)}
             <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 5 6v5.5c0 4.2 2.9 7.4 7 9 4.1-1.6 7-4.8 7-9V6z"/><path d="M9 12l2.2 2.2L15.2 10"/></svg>
             <div>
               <h2 id="h-lgpd">Aviso LGPD · este painel guarda só dados operacionais</h2>
-              <p>Aqui ficam apenas nome ou apelido, origem, etapa, plano, datas e a autorização de depoimento. Informações de saúde, queixas, anotações de sessão e valores não entram neste painel: ficam somente com a Mileny. Depoimento só é usado com autorização por escrito.</p>
+              <p>Aqui ficam apenas nome ou apelido, origem, etapa, plano, datas, a autorização de depoimento e o registro de acompanhamento (data, tipo de contato, próximo passo e uma nota curta). Informações de saúde, queixas, anotações de sessão e valores não entram neste painel: ficam somente com a Mileny. Depoimento só é usado com autorização por escrito.</p>
             </div>
           </div>
           <div class="busca cli-busca-m">
@@ -781,12 +851,13 @@ td .mudo{color:var(--sec)}
             <label class="sr" for="cli-q-m">Buscar cliente</label>
             <input type="search" id="cli-q-m" data-cli-q placeholder="Buscar por nome ou origem" autocomplete="off">
           </div>
+          <section class="card prox-c" id="prox-contatos" aria-labelledby="h-prox" hidden></section>
           <div class="cli-bar" id="cli-bar"></div>
           <div class="card tab-w">
             <table>
               <caption id="cli-cap"></caption>
               <thead><tr>
-                <th scope="col">Nome</th><th scope="col">Origem</th><th scope="col">Etapa do funil</th><th scope="col">Plano</th><th scope="col">Início</th><th scope="col">Sessões</th><th scope="col">Próxima sessão</th><th scope="col">Formato</th><th scope="col">Autorização de depoimento</th>
+                <th scope="col">Nome</th><th scope="col">Origem</th><th scope="col">Etapa do funil</th><th scope="col">Plano</th><th scope="col">Início</th><th scope="col">Sessões</th><th scope="col">Próxima sessão</th><th scope="col">Formato</th><th scope="col">Autorização de depoimento</th><th scope="col" id="th-acomp" hidden>Acompanhamento</th>
               </tr></thead>
               <tbody id="cli-body"></tbody>
             </table>
@@ -972,12 +1043,19 @@ const quem = (n) => `<span class="quem"><i aria-hidden="true">${esc(n[0])}</i>${
 /* ---------- dados reais: ponte com a API ---------- */
 const STATUS_TAREFA = ["A fazer", "Fazendo", "Feito", "Bloqueada"];
 const METRICAS = ["alcance", "salvamentos", "compartilhamentos", "seguidores_ganhos_liquido", "comentarios_roda_ser"];
-const vazio = () => ({ posts: [], clientes: [], ideias: [], tarefas: [], instagram: [] });
+const vazio = () => ({ posts: [], clientes: [], ideias: [], tarefas: [], instagram: [], acomp: [] });
 let db = vazio();
 let usuario = { nome: "", papel: "", email: "" };
 let carregado = false;
+// Recursos novos (acompanhamentos, data de publicação, Instagram por período) só aparecem com a API 2.1.0+.
+const API_MIN_NOVA = "2.1.0";
+let API_VERSAO = "", API_NOVA = false, igAuto = false;
+const verGE = (a, b) => { const x = String(a || "0").split(".").map(Number), y = String(b).split(".").map(Number); for (let i = 0; i < 3; i++) { if ((x[i] || 0) !== (y[i] || 0)) return (x[i] || 0) > (y[i] || 0); } return true; };
+const TIPOS_ACOMP = ["Contato", "Sessão agendada", "Retorno", "Indicação", "Outro"];
+const STATUS_ACOMP = ["Aberto", "Aguardando resposta", "Concluído"];
 const ui = {
   view: "visao", calModo: "mes", calRef: new Date(HOJE.getFullYear(), HOJE.getMonth(), 1), selDia: HOJE_ISO,
+  calCor: "etapa",
   filtros: { q: "", responsavel: "", formato: "", pilar: "" }, ig: "semana", cliEtapa: "", cliQ: "", painelId: null, tarAgente: ""
 };
 const souAprovador = () => usuario.papel === "aprovador";
@@ -1075,7 +1153,8 @@ function dePost(o) {
   return { id: o.id, data: o.data_prevista || "", titulo: o.titulo || "(sem título)", formato: FORMATOS.includes(o.formato) ? o.formato : "Reel",
     pilar: pilarCod(o.pilar), campanha: o.campanha || "", responsavel: o.responsavel || "", status: ETN[o.etapa] || "ideia",
     desde: o.etapa_desde || String(o.atualizado_em || "").slice(0, 10) || HOJE_ISO, notas: o.notas || "", link: links[0] || "", links,
-    aprov: o.status_aprovacao || "", aprovCom: o.comentarios_aprovacao || "", por: o.atualizado_por || "", em: o.atualizado_em || "", ideiaId: o.ideia_id || "" };
+    aprov: o.status_aprovacao || "", aprovCom: o.comentarios_aprovacao || "", por: o.atualizado_por || "", em: o.atualizado_em || "", ideiaId: o.ideia_id || "",
+    pub: o.data_publicacao || "", enviadoEm: o.enviado_aprovacao_em || "" };
 }
 function deIdeia(o) {
   return { id: o.id, titulo: o.titulo || "", nota: o.nota || "", gancho: o.gancho || "", ref: String(o.referencia || "").split(/\s+/).filter(Boolean)[0] || "",
@@ -1086,13 +1165,14 @@ function deCliente(o) {
     sessoes: Number(o.sessoes) || 0, proxima: o.proxima_sessao || "", formato: minus(o.formato), depo: DEPN[o.autorizacao_depoimento] || "nao-solicitada" };
 }
 const deTarefa = (o) => ({ ...o });
+const deAcomp = (o) => ({ ...o });
 function paraCliente(d) {
   return { nome: d.nome, origem: d.origem, etapa_funil: FU[d.etapa] ? FU[d.etapa].nome : "Lead", plano: capi(d.plano), inicio: d.inicio,
     sessoes: d.sessoes, proxima_sessao: d.proxima, formato: capi(d.formato), autorizacao_depoimento: (DEPO.find(([a]) => a === d.depo) || DEPO[0])[1] };
 }
 function paraPost(d) {
   return { titulo: d.titulo, data_prevista: d.data, formato: d.formato, pilar: pilarRot(d.pilar), responsavel: d.responsavel, campanha: d.campanha,
-    etapa: ET[d.status] ? ET[d.status].nome : "Ideia", links: d.link, notas: d.notas };
+    etapa: ET[d.status] ? ET[d.status].nome : "Ideia", links: d.link, notas: d.notas, ...(API_NOVA && d.data_publicacao !== undefined ? { data_publicacao: d.data_publicacao } : {}) };
 }
 const upsert = (lista, obj) => { const i = lista.findIndex((x) => x.id === obj.id); if (i >= 0) lista[i] = obj; else lista.push(obj); };
 function aplicar(r) {
@@ -1100,8 +1180,9 @@ function aplicar(r) {
   if (r.ideia) upsert(db.ideias, deIdeia(r.ideia));
   if (r.cliente) upsert(db.clientes, deCliente(r.cliente));
   if (r.tarefa) upsert(db.tarefas, deTarefa(r.tarefa));
+  if (r.acompanhamento) upsert(db.acomp, deAcomp(r.acompanhamento));
   if (r.removido) {
-    const k = { Posts: "posts", Clientes: "clientes", Tarefas: "tarefas", Ideias: "ideias" }[r.removido.aba];
+    const k = { Posts: "posts", Clientes: "clientes", Tarefas: "tarefas", Ideias: "ideias", Acompanhamentos: "acomp" }[r.removido.aba];
     if (k) db[k] = db[k].filter((x) => x.id !== r.removido.id);
   }
 }
@@ -1117,8 +1198,11 @@ function recarregar(silencioso) {
       META_CLIENTES = Number(r.config.meta_clientes) || META_CLIENTES;
       if (Array.isArray(r.config.pessoas) && r.config.pessoas.length) PESSOAS.splice(0, PESSOAS.length, ...r.config.pessoas);
     }
+    API_VERSAO = r.versao || "2.0.0"; API_NOVA = verGE(API_VERSAO, API_MIN_NOVA);
     db = { posts: (r.posts || []).map(dePost), ideias: (r.ideias || []).map(deIdeia), clientes: (r.clientes || []).map(deCliente),
-      tarefas: (r.tarefas || []).map(deTarefa), instagram: (r.instagram || []).slice().sort((a, b) => String(a.semana_inicio).localeCompare(String(b.semana_inicio))) };
+      tarefas: (r.tarefas || []).map(deTarefa), instagram: (r.instagram || []).slice().sort((a, b) => String(a.semana_inicio).localeCompare(String(b.semana_inicio))),
+      acomp: API_NOVA ? (r.acompanhamentos || []).map(deAcomp) : [] };
+    if (!igAuto) { igAuto = true; if (!db.instagram.some((w) => igPer(w) === "semana") && db.instagram.some((w) => igPer(w) === "30dias")) ui.ig = "mes"; }
     carregado = true;
     const q = $("#quem-sou"); if (q) q.textContent = usuario.nome || usuario.email || "—";
     selo(`Ao vivo · ${usuario.nome || ""}`.trim());
@@ -1185,7 +1269,13 @@ const VIEWS = [
   { id: "ideias", nome: "Ideias", curto: "Ideias" },
   { id: "tarefas", nome: "Tarefas", curto: "Tarefas" }
 ];
+function rAguarda() {
+  const n = db.posts.filter((p) => p.status === "aprovacao").length, b = $("#b-aguarda"), mostra = souAprovador() && n > 0;
+  if (b) { b.hidden = !mostra; $("#b-aguarda-n").textContent = n; b.setAttribute("aria-label", `Aguardando você: ${n} ${n === 1 ? "peça" : "peças"} para aprovar`); }
+  document.title = (mostra ? `(${n}) ` : "") + "Painel da Mileny · operação de conteúdo e clientes";
+}
 function rNav() {
+  rAguarda();
   const paradas = db.posts.filter((p) => p.status === "aprovacao").length;
   const item = (v, curto) => {
     const c = v.id === "pipeline" && paradas ? `<span class="cont" aria-hidden="true">${paradas}</span><span class="sr">, ${paradas} em aprovação</span>` : "";
@@ -1337,19 +1427,36 @@ function rGraficos() {
 
 /* ---------- instagram (só número registrado; senão "sem dado") ---------- */
 const fMil = (n) => (n == null || isNaN(n) ? null : Number(n).toLocaleString("pt-BR"));
+const igPer = (w) => w.periodo || "semana";
+const igFim = (w) => w.periodo_fim || (w.semana_inicio ? iso(mais(pd(w.semana_inicio), igPer(w) === "30dias" ? 29 : 6)) : "");
+const rotPer = (w) => w ? `${fCurta(w.semana_inicio)} a ${fCurta(igFim(w))}` : "";
 function igPeriodos() {
-  const ws = db.instagram.filter((w) => w.semana_inicio);
+  const ws = db.instagram.filter((w) => w.semana_inicio && igPer(w) === "semana");
   const soma = (lista, m) => { const v = lista.map((w) => w[m]).filter((x) => x != null && !isNaN(x)); return v.length ? v.reduce((a, b) => a + Number(b), 0) : null; };
   if (ui.ig === "semana") {
     const a = ws[ws.length - 1], b = ws[ws.length - 2];
-    return { atual: (m) => (a ? a[m] : null), ant: (m) => (b ? b[m] : null), serie: (m) => ws.slice(-8).map((w) => w[m]) };
+    return { rot: a ? `Semana de ${rotPer(a)}` : "", ant: "vs. semana anterior", atual: (m) => (a ? a[m] : null), antV: (m) => (b ? b[m] : null), serie: (m) => ws.slice(-8).map((w) => w[m]) };
+  }
+  // 30 dias: usa os blocos de 30 dias que a Sol registrou; sem eles, soma as semanas do mês
+  const ms = db.instagram.filter((w) => w.semana_inicio && igPer(w) === "30dias").sort((x, y) => igFim(x).localeCompare(igFim(y)));
+  if (ms.length) {
+    const a = ms[ms.length - 1], b = ms[ms.length - 2];
+    return { rot: `Últimos 30 dias: ${rotPer(a)}`, ant: "vs. 30 dias anteriores", atual: (m) => a[m], antV: (m) => (b ? b[m] : null), serie: (m) => ms.slice(-6).map((w) => w[m]) };
   }
   const ult = ws.length ? String(ws[ws.length - 1].semana_inicio).slice(0, 7) : "";
   const [y, mm] = ult ? ult.split("-").map(Number) : [0, 0];
   const antM = ult ? iso(new Date(y, mm - 2, 1)).slice(0, 7) : "";
   const doM = (k) => ws.filter((w) => String(w.semana_inicio).startsWith(k));
   const meses = [...new Set(ws.map((w) => String(w.semana_inicio).slice(0, 7)))].slice(-6);
-  return { atual: (m) => (ult ? soma(doM(ult), m) : null), ant: (m) => (antM ? soma(doM(antM), m) : null), serie: (m) => meses.map((k) => soma(doM(k), m)) };
+  return { rot: ult ? `Soma das semanas de ${MESES[mm - 1]}` : "", ant: "vs. mês anterior", atual: (m) => (ult ? soma(doM(ult), m) : null), antV: (m) => (antM ? soma(doM(antM), m) : null), serie: (m) => meses.map((k) => soma(doM(k), m)) };
+}
+function rSeguidores() {
+  const el = $("#ig-seg"); if (!el) return;
+  const comT = db.instagram.filter((w) => w.seguidores_total != null && w.seguidores_total !== "" && !isNaN(w.seguidores_total)).sort((x, y) => igFim(x).localeCompare(igFim(y)));
+  el.hidden = !comT.length; if (!comT.length) return;
+  const a = comT[comT.length - 1], b = comT[comT.length - 2], dif = b ? Number(a.seguidores_total) - Number(b.seguidores_total) : null;
+  el.innerHTML = `<span class="l">Seguidores no total</span><span class="n">${fMil(Number(a.seguidores_total))}</span>
+    <span class="d">em ${fLonga(igFim(a))}${dif != null ? ` · ${dif >= 0 ? "+" : "−"}${fMil(Math.abs(dif))} desde ${fCurta(igFim(b))}` : ""} · Instagram Insights${a.preenchido_por ? `, registrado por ${esc(a.preenchido_por)}` : ""}</span>`;
 }
 function spark(vals) {
   const v = vals.map((x) => (x == null || isNaN(x) ? null : Number(x)));
@@ -1360,15 +1467,16 @@ function spark(vals) {
   return `<path d="M${pts.map((p) => p[0].toFixed(1) + " " + p[1].toFixed(1)).join("L")}" fill="none" stroke="#3C203F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
 }
 function rIG() {
-  const ant = ui.ig === "semana" ? "vs. semana anterior" : "vs. mês anterior";
   $$('[data-act="ig"]').forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === ui.ig)));
-  const per = igPeriodos();
+  const per = igPeriodos(), ant = per.ant;
+  rSeguidores();
+  const pe = $("#ig-per"); if (pe) pe.innerHTML = per.rot ? `Período: <b>${esc(per.rot)}</b>` : "";
   const tem = db.instagram.length > 0;
   const vz = $("#ig-vazio"); if (vz) vz.hidden = tem;
   const ultimo = db.instagram[db.instagram.length - 1];
   const ul = $("#ig-ultimo"); if (ul) ul.textContent = ultimo ? `${fNum(String(ultimo.preenchido_em || ultimo.semana_inicio).slice(0, 10))}${ultimo.preenchido_por ? " por " + ultimo.preenchido_por : ""}` : "sem dado";
   $("#ig-grid").innerHTML = IG.map((m, i) => {
-    const k = METRICAS[i], a = per.atual(k), b = per.ant(k);
+    const k = METRICAS[i], a = per.atual(k), b = per.antV(k);
     let cmp = "sem dado";
     if (a != null && b != null) { const d = a - b; cmp = b ? `${d >= 0 ? "+" : "−"}${Math.abs(Math.round((d / Math.abs(b)) * 100))}%` : `${d >= 0 ? "+" : "−"}${fMil(Math.abs(d))}`; }
     return `
@@ -1406,19 +1514,23 @@ function sincFiltros() {
 }
 
 /* ---------- calendário ---------- */
+// dia no calendário: publicado usa a data de publicação (se houver); o resto, a data prevista
+const dataCal = (p) => (p.status === "publicado" && p.pub ? p.pub : p.data);
+const podeRemarcar = (p) => (usuario.papel === "aprovador" || usuario.papel === "admin") && p.status !== "publicado";
 const chip = (p) => {
-  const pi = PI[p.pilar], apr = p.status === "aprovacao", pub = p.status === "publicado";
-  return `<button type="button" class="chip ${apr ? "apr" : ""} ${pub ? "pub" : ""} ${pi.tipo || ""}" style="--c:${pi.cor}" data-abrir="${p.id}" aria-label="${esc(p.formato)}: ${esc(p.titulo)}. ${esc(ET[p.status].nome)}. Pilar ${pi.id} ${esc(pi.nome)}.">
-    <span class="bar ${pi.tipo || ""}"></span>${ic(pub ? "ok" : p.formato)}<span class="t">${esc(p.titulo)}</span></button>`;
+  const pi = PI[p.pilar] || PILARES[0], et = ET[p.status], apr = p.status === "aprovacao", pub = p.status === "publicado";
+  const cor = ui.calCor === "pilar" ? pi : et, arr = podeRemarcar(p);
+  return `<button type="button" class="chip ${ui.calCor === "pilar" && apr ? "apr" : ""} ${pub ? "pub" : ""} ${cor.tipo || ""}" style="--c:${cor.cor}" data-abrir="${p.id}" ${arr ? `data-arrasta="${p.id}"` : ""} aria-label="${esc(p.formato)}: ${esc(p.titulo)}. ${esc(et.nome)}. Pilar ${pi.id} ${esc(pi.nome)}.${arr ? " Arraste para outro dia para remarcar." : ""}">
+    <span class="bar ${cor.tipo || ""}"></span>${ic(pub ? "ok" : p.formato)}<span class="t">${esc(p.titulo)}</span></button>`;
 };
 const cardPost = (p) => `<button type="button" class="pc" data-abrir="${p.id}">
   <span class="pc-top">${fmt(p.formato)}${quem(p.responsavel)}</span>
   <span class="pc-t">${esc(p.titulo)}</span>
   <span class="pc-m">${tagEtapa(p.status)}${tagPilar(p.pilar)}</span></button>`;
 function rCal() {
-  const lista = filtrados().sort((a, b) => a.data.localeCompare(b.data));
+  const lista = filtrados().sort((a, b) => dataCal(a).localeCompare(dataCal(b)));
   const porDia = {};
-  lista.forEach((p) => { (porDia[p.data] = porDia[p.data] || []).push(p); });
+  lista.forEach((p) => { const k = dataCal(p); if (k) (porDia[k] = porDia[k] || []).push(p); });
   const mesModo = ui.calModo === "mes";
   let titulo, corpo;
   if (mesModo) {
@@ -1431,7 +1543,7 @@ function rCal() {
       const d = mais(ini, i), di = iso(d), fora = d.getMonth() !== m, ps = porDia[di] || [];
       const cls = [fora ? "fora" : "", (d.getDay() === 0 || d.getDay() === 6) && !fora ? "fds" : "", di === HOJE_ISO ? "hoje" : "", di === ui.selDia ? "sel" : ""].join(" ");
       if (fora) { cel += `<div class="cal-cell fora" aria-hidden="true"></div>`; continue; }
-      cel += `<div class="cal-cell ${cls}">
+      cel += `<div class="cal-cell ${cls}" data-d="${di}">
         <button type="button" class="cal-dia" data-act="dia" data-d="${di}" aria-label="${fLonga(di)}${di === HOJE_ISO ? ", hoje" : ""}. ${ps.length ? ps.length + (ps.length === 1 ? " post" : " posts") : "Sem posts"}. Ver o dia."><span>${d.getDate()}</span></button>
         ${ps.length ? `<div class="cal-posts">${ps.slice(0, 3).map(chip).join("")}${ps.length > 3 ? `<button type="button" class="mais" data-act="dia" data-d="${di}">+${ps.length - 3} neste dia</button>` : ""}</div>` : ""}
       </div>`;
@@ -1440,7 +1552,8 @@ function rCal() {
     const selNoMes = pd(ui.selDia).getMonth() === m && pd(ui.selDia).getFullYear() === a;
     corpo = `<div class="cal-dows" aria-hidden="true">${DOW3.map((d) => `<span>${d}</span>`).join("")}</div>
       <div class="cal-grid">${cel}</div>
-      <div class="cal-lista" aria-live="polite">${selNoMes ? `<h3>${fLonga(ui.selDia)}</h3>${sel.length ? sel.map(cardPost).join("") : `<p class="sem-v">Nenhum post neste dia${temFiltro() ? " com os filtros atuais" : ""}.</p>`}` : `<p class="sem-v">Toque em um dia para ver os posts.</p>`}</div>`;
+      <div class="cal-lista" aria-live="polite">${selNoMes ? `<h3>${fLonga(ui.selDia)}</h3>${sel.length ? sel.map(cardPost).join("") : `<p class="sem-v">Nenhum post neste dia${temFiltro() ? " com os filtros atuais" : ""}.</p>`}` : `<p class="sem-v">Toque em um dia para ver os posts.</p>`}</div>
+      <div class="cal-agenda"><h3>O mês em lista</h3>${Object.keys(porDia).filter((k) => k.startsWith(`${a}-${z2(m + 1)}`)).sort().map((k) => `<h4>${fLonga(k)}</h4>${porDia[k].map(cardPost).join("")}`).join("") || `<p class="sem-v">Nenhum post com data neste mês.</p>`}</div>`;
   } else {
     const ini = mais(ui.calRef, -ui.calRef.getDay()), fim = mais(ini, 6);
     titulo = ini.getMonth() === fim.getMonth() ? `${ini.getDate()} a ${fim.getDate()} de ${MESES[fim.getMonth()]}` : `${ini.getDate()} ${MES3[ini.getMonth()]} a ${fim.getDate()} ${MES3[fim.getMonth()]}`;
@@ -1460,15 +1573,20 @@ function rCal() {
         <button type="button" data-act="cal-modo" data-v="mes" aria-pressed="${mesModo}">Mês</button>
         <button type="button" data-act="cal-modo" data-v="semana" aria-pressed="${!mesModo}">Semana</button>
       </div>
+      ${mesModo ? `<div class="seg" role="group" aria-label="Cor dos posts">
+        <button type="button" data-act="cal-cor" data-v="etapa" aria-pressed="${ui.calCor !== "pilar"}">Por etapa</button>
+        <button type="button" data-act="cal-cor" data-v="pilar" aria-pressed="${ui.calCor === "pilar"}">Por pilar</button>
+      </div>` : ""}
       <button class="btn sec peq" type="button" data-act="cal-hoje">Hoje</button>
       <button class="btn-ic" type="button" data-act="cal-nav" data-v="-1" aria-label="${mesModo ? "Mês anterior" : "Semana anterior"}">${ic("esq")}</button>
       <button class="btn-ic" type="button" data-act="cal-nav" data-v="1" aria-label="${mesModo ? "Próximo mês" : "Próxima semana"}">${ic("dir")}</button>
     </div>
     ${corpo}
     <div class="cal-leg" aria-label="Legenda">
-      ${PILARES.map((p) => `<span>${dot(p)}${p.id} ${esc(p.nome)}</span>`).join("")}
-      <span class="so-d"><i class="am" aria-hidden="true"></i>aguardando o Lucas</span>
-      <span class="so-d">${ic("ok", "p")}publicado</span>
+      ${ui.calCor === "pilar" || !mesModo ? PILARES.map((p) => `<span>${dot(p)}${p.id} ${esc(p.nome)}</span>`).join("") + `<span class="so-d"><i class="am" aria-hidden="true"></i>aguardando o Lucas</span>`
+        : ETAPAS.map((e) => `<span>${dot(e)}${esc(e.nome)}</span>`).join("")}
+      <span class="so-d">${ic("ok", "p")}publicado (na data de publicação)</span>
+      ${mesModo && (usuario.papel === "aprovador" || usuario.papel === "admin") ? `<span class="dica">Arraste um post para outro dia para remarcar.</span>` : ""}
     </div>`;
 }
 
@@ -1635,7 +1753,9 @@ function rClientes() {
   const lista = db.clientes
     .filter((c) => (!ui.cliEtapa || c.etapa === ui.cliEtapa) && (!q || (c.nome + " " + c.origem).toLowerCase().includes(q)))
     .sort((a, b) => ordem.indexOf(a.etapa) - ordem.indexOf(b.etapa) || a.nome.localeCompare(b.nome, "pt-BR"));
-  $("#cli-cap").textContent = `${lista.length} de ${db.clientes.length} registros · só dados operacionais. Clique no nome para editar.`;
+  $("#cli-cap").textContent = `${lista.length} de ${db.clientes.length} registros · só dados operacionais. Clique no nome para editar${API_NOVA ? " ou em “Acompanhamento” para ver o histórico" : ""}.`;
+  $("#th-acomp").hidden = !API_NOVA;
+  rProxContatos();
   const tr = "<span class=\"mudo\" aria-label=\"não informado\">—</span>";
   const depo = (d) => d === "autorizada" ? `<span class="dep">${ic("ok", "p")}Autorizada<span class="sr"> por escrito</span></span>` : d === "nao-autorizada" ? `<span class="dep">${ic("x", "p")}Não autorizada</span>` : `<span class="dep mudo">${ic("traco", "p")}Não solicitada</span>`;
   const cap = (s) => s ? s[0].toUpperCase() + s.slice(1) : "";
@@ -1649,7 +1769,73 @@ function rClientes() {
     <td data-l="Próxima sessão">${c.proxima ? `${fCurta(c.proxima)}${c.proxima === HOJE_ISO ? ' <span class="tag forte">hoje</span>' : ""}` : tr}</td>
     <td data-l="Formato">${c.formato ? esc(cap(c.formato)) : tr}</td>
     <td data-l="Depoimento">${depo(c.depo)}</td>
-  </tr>`).join("") : `<tr><td colspan="9" class="nome" style="white-space:normal"><div class="vazio"><span class="serif">Ninguém por aqui.</span><span style="font-family:var(--sans);font-weight:400;font-size:14px">${db.clientes.length ? "Ajuste a busca ou o filtro de etapa." : "Use “Novo cliente” para registrar o primeiro contato."}</span></div></td></tr>`;
+    ${API_NOVA ? `<td data-l="Acompanhamento" class="cli-ac">${resumoAcomp(c)}</td>` : ""}
+  </tr>`).join("") : `<tr><td colspan="${API_NOVA ? 10 : 9}" class="nome" style="white-space:normal"><div class="vazio"><span class="serif">Ninguém por aqui.</span><span style="font-family:var(--sans);font-weight:400;font-size:14px">${db.clientes.length ? "Ajuste a busca ou o filtro de etapa." : "Use “Novo cliente” para registrar o primeiro contato."}</span></div></td></tr>`;
+}
+
+/* ---------- acompanhamentos (LGPD: só dados operacionais) ---------- */
+const acompDe = (cid) => db.acomp.filter((a) => a.cliente_id === cid).sort((a, b) => String(b.data).localeCompare(String(a.data)) || String(b.criado_em).localeCompare(String(a.criado_em)));
+const tagProx = (d) => (!d ? "" : d < HOJE_ISO ? ' <span class="tag forte">atrasado</span>' : d === HOJE_ISO ? ' <span class="tag forte">hoje</span>' : "");
+function resumoAcomp(c) {
+  const u = acompDe(c.id)[0];
+  return `${u ? `<b>${esc(u.tipo)}</b> · ${fCurta(u.data)}${u.proximo_contato && u.status !== "Concluído" ? `<br>Próximo: ${fCurta(u.proximo_contato)}${tagProx(u.proximo_contato)}` : ""}<br>` : '<span class="mudo">Sem registro</span><br>'}
+    <button type="button" class="lk" data-act="acomp" data-id="${c.id}" aria-label="Acompanhamento de ${esc(c.nome)}">Acompanhamento</button>`;
+}
+function proxContatos() {
+  return db.clientes.map((c) => ({ c, a: acompDe(c.id).find((a) => a.proximo_contato && a.status !== "Concluído") }))
+    .filter((x) => x.a && (x.c.etapa !== "encerrada")).sort((x, y) => x.a.proximo_contato.localeCompare(y.a.proximo_contato));
+}
+function rProxContatos() {
+  const el = $("#prox-contatos"); if (!el) return;
+  el.hidden = !API_NOVA; if (!API_NOVA) return;
+  const l = proxContatos(), atras = l.filter((x) => x.a.proximo_contato < HOJE_ISO).length;
+  el.innerHTML = `<div class="pc-h"><h2 id="h-prox">Próximos contatos</h2><p class="card-s">${l.length ? `${l.length} ${l.length === 1 ? "pessoa" : "pessoas"} com próximo contato marcado${atras ? ` · <b>${atras} ${atras === 1 ? "atrasado" : "atrasados"}</b>` : ""}.` : "Nenhum próximo contato marcado."} Só datas e passos operacionais, nada de saúde ou valores.</p></div>
+    ${l.length ? `<ul class="lista">${l.slice(0, 6).map(({ c, a }) => `<li>
+      <div class="l-d" aria-hidden="true"><b>${pd(a.proximo_contato).getDate()}</b><span>${MES3[pd(a.proximo_contato).getMonth()]}</span></div>
+      <div class="l-c"><button class="l-t" type="button" data-act="acomp" data-id="${c.id}">${esc(c.nome)}</button>
+        <div class="l-m"><span class="fmt">${esc(a.proximo_passo || a.tipo)}</span>${tagProx(a.proximo_contato)}<span class="fmt">${esc(a.status)}</span></div></div>
+    </li>`).join("")}</ul>` : ""}`;
+}
+function formAcomp(cid, manter) {
+  const c = db.clientes.find((x) => x.id === cid); if (!c) return;
+  const hist = acompDe(cid);
+  const ult = hist[0];
+  const tl = hist.length ? `<ol class="acomp-tl" aria-label="Histórico de acompanhamento">${hist.map((a) => `<li class="${a.status === "Concluído" ? "feito" : ""}">
+      <div class="a-h"><b>${fNum(a.data)}</b><span class="tag">${esc(a.tipo)}</span><span>${esc(a.status)}</span>${a.criado_por ? `<span>· ${esc(a.criado_por)}</span>` : ""}</div>
+      ${a.proximo_passo || a.proximo_contato ? `<p>${a.proximo_passo ? `Próximo passo: ${esc(a.proximo_passo)}` : "Próximo contato"}${a.proximo_contato ? ` · ${fCurta(a.proximo_contato)}${a.status !== "Concluído" ? tagProx(a.proximo_contato) : ""}` : ""}</p>` : ""}
+      ${a.nota ? `<p style="color:var(--sec)">${esc(a.nota)}</p>` : ""}
+      <div class="a-a">${a.status !== "Concluído" ? `<button type="button" class="lk" data-act="acomp-status" data-id="${a.id}" data-v="Concluído">Marcar como concluído</button>` : `<button type="button" class="lk" data-act="acomp-status" data-id="${a.id}" data-v="Aberto">Reabrir</button>`}
+        <button type="button" class="lk" data-act="acomp-excluir" data-id="${a.id}">Apagar</button></div>
+    </li>`).join("")}</ol>` : `<p class="vz" style="margin-top:12px;color:var(--sec)">Ainda sem registros. O primeiro entra pelo formulário abaixo.</p>`;
+  abrirForm({
+    num: `Clientes · ${esc(FU[c.etapa] ? FU[c.etapa].nome : "")}`, titulo: `Acompanhamento de ${esc(c.nome)}`, rotulo: "Registrar acompanhamento",
+    intro: "Registre o contato e o próximo passo.",
+    extra: `<p class="aviso-form">${ic("escudo")}<span>LGPD: só o que é operacional (data, tipo de contato, próximo passo, data do próximo contato e uma nota curta). Nada de saúde, queixas, conteúdo das sessões, dados clínicos ou valores: isso fica somente com a Mileny.</span></p>
+      <div class="acomp-res">${ult ? `Último: <b>${esc(ult.tipo)}</b> em ${fCurta(ult.data)} · ${esc(ult.status)}` : "Sem histórico"}${c.proxima ? ` · Próxima sessão: ${fCurta(c.proxima)}` : ""}</div>
+      ${tl}<h3 style="font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sec);margin:18px 0 0">Novo registro</h3>`,
+    valores: { data: HOJE_ISO, tipo: "Contato", status: "Aberto" },
+    campos: [
+      { name: "data", label: "Data", type: "date", req: true },
+      { name: "tipo", label: "Tipo", type: "select", req: true, op: TIPOS_ACOMP },
+      { name: "proximo_passo", label: "Próximo passo", full: true, max: 140, ph: "Ex.: Enviar horários da semana" },
+      { name: "proximo_contato", label: "Próximo contato", type: "date" },
+      { name: "status", label: "Status", type: "select", op: STATUS_ACOMP },
+      { name: "nota", label: "Nota curta", full: true, max: 200, ph: "Ex.: Prefere falar à noite, pelo WhatsApp", aj: "Até 200 caracteres. Sem saúde, queixas, conteúdo de sessão ou valores." }
+    ],
+    validar: (d) => {
+      const e = {};
+      if (!dataOk(d.data)) e.data = "Informe a data.";
+      if (!TIPOS_ACOMP.includes(d.tipo)) e.tipo = "Escolha o tipo.";
+      if (d.proximo_contato && !dataOk(d.proximo_contato)) e.proximo_contato = "Data inválida.";
+      if (/R\$\s*\d/.test(d.nota + " " + d.proximo_passo)) e.nota = "Valores não entram no painel (LGPD).";
+      return e;
+    },
+    aoSalvar: (d) => {
+      avisar("Salvando…");
+      enviar("acompanhamento.criar", { cliente_id: cid, ...d }, `Acompanhamento de ${c.nome} registrado.`).then((r) => { if (r && topo() && topo().el.id === "c-modal") formAcomp(cid, true); });
+    }
+  });
+  if (manter) { const tlEl = $("#modal .acomp-tl"); if (tlEl) tlEl.scrollIntoView({ block: "nearest" }); }
 }
 
 /* ---------- ideias ---------- */
@@ -1731,6 +1917,40 @@ document.addEventListener("keydown", (e) => {
 $$(".camada").forEach((c) => c.addEventListener("mousedown", (e) => { if (e.target === c) fecharCamada(c); }));
 
 /* ---------- painel de detalhe ---------- */
+/* ---------- prévia dos links da peça ---------- */
+function infoLink(u) {
+  let url; try { url = new URL(u); } catch (e) { return null; }
+  if (url.protocol !== "https:") return null;
+  const host = url.hostname.replace(/^www\./, ""), p = url.pathname;
+  let m;
+  if (/(^|\.)drive\.google\.com$/.test(host) || host === "docs.google.com") {
+    const id = (p.match(/\/d\/([\w-]{10,})/) || [])[1] || url.searchParams.get("id");
+    const tipo = /\/document\//.test(p) ? "Documento" : /\/presentation\//.test(p) ? "Apresentação" : /\/spreadsheets\//.test(p) ? "Planilha" : /\/folders\//.test(p) ? "Pasta" : "Arquivo";
+    if (id && host === "drive.google.com" && !/\/folders\//.test(p)) return { nome: "Google Drive", tipo, ini: "D", embed: `https://drive.google.com/file/d/${encodeURIComponent(id)}/preview` };
+    if (id && host === "docs.google.com" && tipo !== "Arquivo") return { nome: "Google " + tipo, tipo, ini: "G", embed: `https://docs.google.com${p.replace(/\/(edit|view)?$/, "")}/preview`.replace("/preview/preview", "/preview") };
+    return { nome: "Google Drive", tipo, ini: "D" };
+  }
+  if (host === "youtu.be") m = p.slice(1);
+  else if (/(^|\.)youtube\.com$/.test(host)) m = url.searchParams.get("v") || (p.match(/\/(shorts|embed|live)\/([\w-]{6,})/) || [])[2];
+  if (m) return { nome: "YouTube", tipo: /shorts/.test(p) ? "Short" : "Vídeo", ini: "▶", embed: `https://www.youtube-nocookie.com/embed/${encodeURIComponent(m)}`, vert: /shorts/.test(p) };
+  if (/(^|\.)instagram\.com$/.test(host) && (m = p.match(/^\/(p|reel|reels|tv)\/([\w-]+)/))) return { nome: "Instagram", tipo: m[1] === "p" ? "Post" : "Reel", ini: "IG", embed: `https://www.instagram.com/${m[1] === "reels" ? "reel" : m[1]}/${m[2]}/embed`, vert: true, alto: true };
+  if (/(^|\.)canva\.com$/.test(host)) return { nome: "Canva", tipo: "Design", ini: "C" };
+  if (/\.(png|jpe?g|webp|gif|avif)$/i.test(p)) return { nome: host, tipo: "Imagem", ini: "◧", img: u };
+  return { nome: host, tipo: "Link", ini: host[0].toUpperCase() };
+}
+function previa(p) {
+  if (!p.links.length) return `<p class="prev-vazio">Nenhum link da peça ainda. Use “Editar” para colar o link do vídeo ou da arte (Drive, YouTube, Canva, Instagram).</p>`;
+  const forma = p.formato === "Reel" || p.formato === "Story" ? "vert" : p.formato === "Carrossel" || p.formato === "Post-foto" ? "quad" : "";
+  return `<div class="prev">${p.links.map((u, k) => {
+    const i = infoLink(u);
+    if (!i) return `<span class="prev-vazio">Link ${k + 1} inválido (precisa de https://).</span>`;
+    const midia = i.embed
+      ? `<div class="prev-m ${i.vert || (forma === "vert" && i.nome === "Google Drive") ? "vert" : forma === "quad" && i.nome === "Google Drive" ? "quad" : ""}"${i.alto ? ' style="--ar:9/14"' : ""}><iframe src="${esc(i.embed)}" title="Prévia: ${esc(i.nome)} · ${esc(p.titulo)}" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`
+      : i.img ? `<div class="prev-m ${forma}"><img src="${esc(i.img)}" alt="Prévia da peça ${esc(p.titulo)}" loading="lazy" referrerpolicy="no-referrer"></div>` : "";
+    return `${midia}<a class="prev-l" href="${esc(u)}" target="_blank" rel="noopener noreferrer"><span class="pl-i" aria-hidden="true">${esc(i.ini)}</span><span class="pl-t"><b>Abrir no ${esc(i.nome)}</b><span>${esc(i.tipo)} · ${esc(u.replace(/^https:\/\//, ""))}</span></span>${ic("seta", "p")}<span class="sr"> (abre em nova aba)</span></a>`;
+  }).join("")}</div>`;
+}
+
 function abrirPainel(id) {
   const p = post(id); if (!p) return;
   ui.painelId = id;
@@ -1742,7 +1962,8 @@ function rPainel() {
   const p = post(ui.painelId); if (!p) { fecharCamada($("#c-painel")); return; }
   const i = FLUXO.findIndex((e) => e.id === p.status), aj = p.status === "ajustes";
   const prox = aj ? ET.producao : FLUXO[i + 1];
-  const rotProx = aj ? "Devolver para Produção" : p.status === "aprovacao" ? (souAprovador() ? "Aprovar e agendar" : "") : (prox && prox.id === "agendado" && !souAprovador()) ? "" : prox ? `Avançar para ${prox.nome}` : "";
+  const decide = p.status === "aprovacao" && souAprovador();
+  const rotProx = aj ? "Devolver para Produção" : p.status === "aprovacao" ? "" : (prox && prox.id === "agendado" && !souAprovador()) ? "" : prox ? `Avançar para ${prox.nome}` : "";
   $("#painel").innerHTML = `
     <div class="p-h">
       <p class="eyebrow">${fmt(p.formato)} <span>${p.data ? `${fCurta(p.data)} · ${DOW3[pd(p.data).getDay()]}` : "sem data"}</span></p>
@@ -1757,12 +1978,22 @@ function rPainel() {
         ${aj ? "" : `<div class="trilha" aria-hidden="true">${FLUXO.map((e, j) => `<i class="${j <= i ? "ok" : ""}"></i>`).join("")}</div>`}
         <p class="desde">${aj ? "Em ajustes" : `Etapa ${i + 1} de ${FLUXO.length}`} · nesta etapa ${ha(p.desde)}</p>
       </div>
+      <div class="p-rev"><h3>Peça para revisar</h3>${previa(p)}</div>
+      ${decide ? `<div class="p-decide" role="group" aria-labelledby="p-dec-t">
+        <h3 id="p-dec-t">Sua decisão</h3>
+        <label for="p-com">Comentário <span class="aj">· opcional para aprovar, obrigatório para pedir ajustes</span></label>
+        <textarea id="p-com" maxlength="1000" placeholder="Ex.: Pode agendar. / Trocar a capa e cortar os 3 primeiros segundos." aria-describedby="p-com-e"></textarea>
+        <span class="erro" id="p-com-e" hidden></span>
+        <div class="p-dec-b">
+          <button class="btn sec" type="button" data-act="p-ajustes" data-id="${p.id}">Pedir ajustes</button>
+          <button class="btn pri" type="button" data-act="p-aprovar" data-id="${p.id}">Aprovar e agendar</button>
+        </div></div>` : p.status === "aprovacao" ? `<p class="p-espera">${ic("relogio", "p")}Com o Lucas para aprovação · ${ha(p.desde)}.</p>` : ""}
       <dl class="dl">
         <dt>Pilar</dt><dd>${tagPilar(p.pilar)}</dd>
         <dt>Campanha</dt><dd>${p.campanha ? esc(p.campanha) : "—"}</dd>
         <dt>Responsável</dt><dd>${quem(p.responsavel)}</dd>
         <dt>Data</dt><dd>${fLonga(p.data)}</dd>
-        <dt>Arquivos</dt><dd>${p.links.length ? p.links.map((l, k) => `<a class="lk" href="${esc(l)}" target="_blank" rel="noopener noreferrer">${p.links.length > 1 ? `Arquivo ${k + 1}` : "Abrir arquivo"}<span class="sr"> (abre em nova aba)</span></a>`).join(" · ") : "Sem link"}</dd>
+        ${p.pub ? `<dt>Publicado em</dt><dd>${fLonga(p.pub)}</dd>` : ""}
         <dt>Aprovação</dt><dd>${p.aprov ? esc(p.aprov) : "—"}</dd>
         <dt>Atualizado</dt><dd>${p.por ? `${esc(p.por)}${p.em ? " · " + fNum(p.em.slice(0, 10)) + " " + esc(p.em.slice(11, 16)) : ""}` : "—"}</dd>
       </dl>
@@ -1771,7 +2002,7 @@ function rPainel() {
     </div>
     <div class="p-f">
       ${rotProx ? `<button class="btn pri" type="button" data-act="avancar" data-id="${p.id}">${rotProx}</button>` : ""}
-      ${!aj && p.status !== "publicado" && p.status !== "ideia" ? `<button class="btn sec" type="button" data-act="ajustar" data-id="${p.id}">Pedir ajustes</button>` : ""}
+      ${!aj && !decide && p.status !== "publicado" && p.status !== "ideia" ? `<button class="btn sec" type="button" data-act="ajustar" data-id="${p.id}">Pedir ajustes</button>` : ""}
       <button class="btn fan esp" type="button" data-act="editar-post" data-id="${p.id}">Editar</button>
       <button class="btn fan" type="button" data-act="excluir-post" data-id="${p.id}">Excluir</button>
     </div>`;
@@ -1791,10 +2022,21 @@ function campo(f, val) {
   const com = `id="${id}" name="${f.name}" aria-describedby="${desc}" ${f.req ? 'aria-required="true"' : ""}`;
   const v = val ?? "";
   let c;
+  if (f.type === "links") {
+    const vs = (Array.isArray(v) ? v : String(v).split(/\s+/)).filter(Boolean);
+    return `<div class="campo full"><label for="${id}">${esc(f.label)}</label>
+      <div class="links-l" id="${id}-l">${(vs.length ? vs : [""]).map((u, k) => linhaLink(u, k === 0 ? id : "", desc)).join("")}</div>
+      <button type="button" class="btn fan peq mais-l" data-act="mais-link">+ Adicionar outro link</button>
+      ${f.aj ? `<span class="aj" id="${id}-a">${esc(f.aj)}</span>` : ""}<span class="erro" id="${id}-e" hidden></span></div>`;
+  }
   if (f.type === "select") c = `<select ${com}>${f.op.map((o) => { const [a, b] = Array.isArray(o) ? o : [o, o]; return `<option value="${esc(a)}" ${String(a) === String(v) ? "selected" : ""}>${esc(b)}</option>`; }).join("")}</select>`;
   else if (f.type === "textarea") c = `<textarea ${com} maxlength="400">${esc(v)}</textarea>`;
   else c = `<input type="${f.type || "text"}" ${com} value="${esc(v)}" ${f.max ? `maxlength="${f.max}"` : ""} ${f.type === "number" ? 'min="0" step="1" inputmode="numeric"' : ""} ${f.ph ? `placeholder="${esc(f.ph)}"` : ""} ${f.lista ? `list="${f.lista}"` : ""} autocomplete="off">`;
   return `<div class="campo ${f.full ? "full" : ""}"><label for="${id}">${esc(f.label)}${f.req ? ' <span class="req" aria-hidden="true">*</span>' : ""}</label>${c}${f.aj ? `<span class="aj" id="${id}-a">${esc(f.aj)}</span>` : ""}<span class="erro" id="${id}-e" hidden></span></div>`;
+}
+function linhaLink(u, id, desc) {
+  return `<div class="link-l"><input type="url" name="link" ${id ? `id="${id}" aria-describedby="${desc}"` : 'aria-label="Outro link"'} value="${esc(u)}" placeholder="https://drive.google.com/…" inputmode="url" autocomplete="off" spellcheck="false">
+    <button type="button" class="btn-ic" data-act="tirar-link" aria-label="Remover este link">${ic("x")}</button></div>`;
 }
 function abrirForm({ num, titulo, intro, campos, valores, validar, aoSalvar, rotulo, extra = "" }) {
   $("#modal").innerHTML = `
@@ -1812,7 +2054,8 @@ function abrirForm({ num, titulo, intro, campos, valores, validar, aoSalvar, rot
   const form = $("#m-form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const d = Object.fromEntries([...new FormData(form).entries()].map(([k, v]) => [k, String(v).trim()]));
+    const d = {};
+    for (const [k, v] of new FormData(form).entries()) { const s = String(v).trim(); if (k in d) { if (s) d[k] = d[k] ? `${d[k]} ${s}` : s; } else d[k] = s; }
     const erros = validar(d);
     campos.forEach((f) => {
       const el = $("#f-" + f.name), er = $("#f-" + f.name + "-e"), m = erros[f.name];
@@ -1838,7 +2081,7 @@ function formPost(id) {
     num: "Conteúdo · pipeline", titulo: ed ? "Editar post" : "Novo post", rotulo: ed ? "Salvar alterações" : "Criar post",
     intro: ed ? "Ajuste os dados do post." : "O post entra no pipeline na etapa escolhida.",
     extra: `<datalist id="dl-camp">${camp.map((c) => `<option value="${esc(c)}">`).join("")}</datalist>`,
-    valores: ed ? { ...ed, link: ed.links.join(" ") } : { data: ui.view === "calendario" && ui.selDia ? ui.selDia : HOJE_ISO, status: "ideia", formato: "", pilar: "", responsavel: "" },
+    valores: ed ? { ...ed, link: ed.links, data_publicacao: ed.pub } : { data: ui.view === "calendario" && ui.selDia ? ui.selDia : HOJE_ISO, status: "ideia", formato: "", pilar: "", responsavel: "" },
     campos: [
       { name: "titulo", label: "Título ou gancho", req: true, full: true, max: 110, ph: "Ex.: Sua cabeça tem 47 abas abertas", aj: "Até 12 palavras no gancho." },
       { name: "data", label: "Data de publicação", type: "date", req: true },
@@ -1847,7 +2090,8 @@ function formPost(id) {
       { name: "responsavel", label: "Responsável", type: "select", req: true, op: [["", "Selecione"], ...PESSOAS] },
       { name: "campanha", label: "Campanha", max: 60, lista: "dl-camp", ph: "Ex.: Roda do SER" },
       { name: "status", label: "Etapa", type: "select", op: ETAPAS.map((e) => [e.id, e.nome]) },
-      { name: "link", label: "Links dos arquivos", full: true, ph: "https://drive.google.com/…", aj: "Pode colar mais de um, separados por espaço." },
+      { name: "link", label: "Links da peça (vídeo, arte, roteiro)", type: "links", aj: "Drive, YouTube, Canva, Instagram… Um link por campo, sempre com https://. Caminho de arquivo do computador não funciona: suba no Drive e cole o link." },
+      ...(API_NOVA ? [{ name: "data_publicacao", label: "Publicado em", type: "date", aj: "Preenchida sozinha quando a peça vai para Publicado." }] : []),
       { name: "notas", label: "Notas da equipe", type: "textarea", full: true, aj: "Orientações de produção. Sem promessa de cura, prazo ou garantia." }
     ],
     validar: (d) => {
@@ -1857,7 +2101,8 @@ function formPost(id) {
       if (!FORMATOS.includes(d.formato)) e.formato = "Escolha o formato.";
       if (!PI[d.pilar]) e.pilar = "Escolha um dos 7 pilares.";
       if (!PESSOAS.includes(d.responsavel)) e.responsavel = "Escolha quem responde pela peça.";
-      if (d.link && d.link.split(/\s+/).some((l) => !/^https?:\/\/\S+\.\S+/.test(l))) e.link = "Cada link precisa começar com http:// ou https://.";
+      if (d.link && d.link.split(/\s+/).some((l) => !/^https:\/\/[^\s/]+\.\S+/.test(l))) e.link = "Cada link precisa ser completo e começar com https://.";
+      if (d.data_publicacao && !dataOk(d.data_publicacao)) e.data_publicacao = "Data inválida.";
       if (d.status === "agendado" && !souAprovador() && (!ed || ed.status !== "agendado")) e.status = "Só o Lucas leva uma peça para Agendado.";
       return e;
     },
@@ -2007,6 +2252,49 @@ document.addEventListener("click", (e) => {
     case "fechar": if (topo()) fecharCamada(topo().el); break;
     case "atualizar": recarregar(false).then(() => avisar("Dados atualizados.")); break;
     case "sair": sair(); break;
+    case "aguarda": {
+      const fila = db.posts.filter((p) => p.status === "aprovacao").sort((a, b) => a.desde.localeCompare(b.desde));
+      if (fila.length === 1) abrirPainel(fila[0].id);
+      else { location.hash = "#visao"; setTimeout(() => { const l = $("#lista-apr"); if (l) { l.scrollIntoView({ block: "center", behavior: "smooth" }); const t = $("#lista-apr .l-t"); if (t) t.focus({ preventScroll: true }); } }, 60); }
+      break;
+    }
+    case "mais-link": {
+      const l = b.closest(".campo").querySelector(".links-l");
+      l.insertAdjacentHTML("beforeend", linhaLink("", "", ""));
+      l.lastElementChild.querySelector("input").focus();
+      break;
+    }
+    case "tirar-link": {
+      const linha = b.closest(".link-l"), l = linha.parentElement;
+      if (l.children.length > 1) { const outro = linha.previousElementSibling || linha.nextElementSibling; const eraPri = linha === l.firstElementChild; linha.remove(); if (eraPri) { const inp = l.firstElementChild.querySelector("input"); const id0 = l.id.replace(/-l$/, ""); inp.id = id0; inp.removeAttribute("aria-label"); inp.setAttribute("aria-describedby", `${id0}-a ${id0}-e`); } outro.querySelector("input").focus(); }
+      else { const inp = linha.querySelector("input"); inp.value = ""; inp.focus(); }
+      break;
+    }
+    case "p-aprovar": case "p-ajustes": {
+      if (!souAprovador()) { avisar("Só o Lucas decide."); break; }
+      const p = post(id); if (!p) break;
+      const com = ($("#p-com") || {}).value ? $("#p-com").value.trim() : "";
+      if (act === "p-ajustes" && com.length < 3) { const er = $("#p-com-e"); er.textContent = "Escreva o que precisa ajustar."; er.hidden = false; $("#p-com").setAttribute("aria-invalid", "true"); $("#p-com").focus(); break; }
+      if (act === "p-aprovar") { p.status = "agendado"; p.desde = HOJE_ISO; rTudo(); enviar("post.aprovar", com ? { id, comentario: com } : { id }, `“${p.titulo}” aprovado e agendado.`); }
+      else { p.status = "ajustes"; p.desde = HOJE_ISO; rTudo(); enviar("post.ajustes", { id, comentario: com }, `“${p.titulo}” foi para Ajustes, com o seu comentário.`); }
+      const f = $("#p-fechar"); if (f) f.focus();
+      break;
+    }
+    case "cal-cor": ui.calCor = v; rCal(); focoCal(`[data-act=cal-cor][data-v=${v}]`); break;
+    case "acomp": formAcomp(id); break;
+    case "acomp-status": {
+      const a = db.acomp.find((x) => x.id === id); if (!a) break;
+      const cid = a.cliente_id; a.status = v;
+      enviar("acompanhamento.atualizar", { id, status: v }, `Marcado como ${v}.`).then(() => { if (topo() && topo().el.id === "c-modal") formAcomp(cid, true); });
+      break;
+    }
+    case "acomp-excluir": {
+      const a = db.acomp.find((x) => x.id === id); if (!a) break;
+      const cid = a.cliente_id;
+      confirmar({ titulo: "Apagar este registro?", texto: `O acompanhamento de ${fCurta(a.data)} (${esc(a.tipo)}) sai do histórico.`, rotulo: "Apagar",
+        acao: () => enviar("acompanhamento.excluir", { id }, "Registro apagado.").then(() => { if (topo() && topo().el.id === "c-modal") formAcomp(cid, true); }) });
+      break;
+    }
     case "aprovar": {
       if (!souAprovador()) { avisar("Só o Lucas aprova."); break; }
       const p = post(id); if (!p) break;
@@ -2037,7 +2325,7 @@ document.addEventListener("click", (e) => {
     }
     case "excluir-cliente": {
       const c = db.clientes.find((x) => x.id === id); if (!c) break;
-      confirmar({ titulo: "Remover do painel?", texto: `O registro de ${esc(c.nome)} será apagado deste painel.`, rotulo: "Remover",
+      confirmar({ titulo: "Remover do painel?", texto: `O registro de ${esc(c.nome)}${API_NOVA ? " e o histórico de acompanhamento dela" : ""} serão apagados deste painel.`, rotulo: "Remover",
         acao: () => { fecharCamada($("#c-modal")); focoView(); enviar("cliente.excluir", { id }, "Registro removido."); } });
       break;
     }
@@ -2062,6 +2350,38 @@ document.addEventListener("click", (e) => {
     case "cli-etapa": ui.cliEtapa = v; rClientes(); { const n = $(`[data-act=cli-etapa][data-v="${v}"]`); if (n) n.focus(); } break;
   }
 });
+let arrCal = null;
+document.addEventListener("pointerdown", (e) => {
+  const c = e.target.closest && e.target.closest(".cal-grid [data-arrasta]");
+  if (!c || e.button > 0 || e.pointerType !== "mouse") return;
+  arrCal = { id: c.dataset.arrasta, c, x0: e.clientX, y0: e.clientY, ativo: false, fant: null, alvo: null };
+});
+document.addEventListener("pointermove", (e) => {
+  if (!arrCal) return;
+  if (!arrCal.ativo) {
+    if (Math.hypot(e.clientX - arrCal.x0, e.clientY - arrCal.y0) < 6) return;
+    arrCal.ativo = true; arrCal.c.classList.add("arrastando");
+    const f = arrCal.c.cloneNode(true); f.classList.add("fantasma"); f.removeAttribute("data-abrir"); f.removeAttribute("data-arrasta"); f.setAttribute("aria-hidden", "true");
+    f.style.width = arrCal.c.offsetWidth + "px"; document.body.appendChild(f); arrCal.fant = f; document.body.classList.add("arrastando-cal");
+  }
+  arrCal.fant.style.transform = `translate(${e.clientX + 10}px, ${e.clientY + 10}px)`;
+  const el = document.elementFromPoint(e.clientX, e.clientY), cel = el && el.closest(".cal-cell[data-d]");
+  if (cel !== arrCal.alvo) { if (arrCal.alvo) arrCal.alvo.classList.remove("alvo-d"); arrCal.alvo = cel; if (cel) cel.classList.add("alvo-d"); }
+});
+function fimCal(soltar) {
+  const a = arrCal; arrCal = null; if (!a) return;
+  if (!a.ativo) return;
+  engoleClique = true; setTimeout(() => { engoleClique = false; }, 60);
+  if (a.fant) a.fant.remove(); a.c.classList.remove("arrastando"); document.body.classList.remove("arrastando-cal");
+  if (a.alvo) a.alvo.classList.remove("alvo-d");
+  const p = post(a.id), d = a.alvo && a.alvo.dataset.d;
+  if (!soltar || !p || !d || !podeRemarcar(p) || !dataOk(d) || d === p.data) return;
+  const antes = p.data; p.data = d; ui.selDia = d; rCal();
+  enviar("post.atualizar", { id: p.id, data_prevista: d }, `“${p.titulo}” remarcado de ${fCurta(antes)} para ${fCurta(d)}.`);
+}
+document.addEventListener("pointerup", () => fimCal(true));
+document.addEventListener("pointercancel", () => fimCal(false));
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && arrCal && arrCal.ativo) { e.preventDefault(); fimCal(false); avisar("Remarcação cancelada."); } }, true);
 function focoCal(sel) { const el = $(sel, $("#cal")); if (el) el.focus({ preventScroll: true }); }
 document.addEventListener("input", (e) => {
   const t = e.target;
