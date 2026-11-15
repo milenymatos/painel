@@ -602,6 +602,16 @@ td .mudo{color:var(--sec)}
 @media print{.side,.tabs,.topo-m,.util .btn,.camada,.toast{display:none!important}.app{display:block}body{background-image:none}}
 [tabindex="-1"]:focus:not(:focus-visible),h1[tabindex="-1"]:focus{outline:none}
 /* ---------- v4: revisão, decisão, links, calendário, acompanhamentos, Instagram ---------- */
+.aguarda .ai{font-weight:500;opacity:.85;margin-left:2px}
+.aguarda .ai[hidden]{display:none}
+.quadro-in.v3{width:100%}
+.quadro-in.v3 .kcol{flex:1 1 0;min-width:232px}
+@media (max-width:900px){.quadro-in.v3{width:max-content}.quadro-in.v3 .kcol{flex:none;width:min(80vw,300px)}}
+.tag.ajuste{background:transparent;border:1px solid var(--cobre);color:var(--cobre)}
+.tag.ajuste .icone{width:13px;height:13px}
+.kcol.dest .tag.ajuste{border-color:var(--creme);color:var(--creme)}
+.i-dec{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.ideia.nova-dec{border-color:rgba(60,32,63,.35)}
 .aguarda b{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:var(--creme);color:var(--ameixa);font-size:12px;font-weight:600}
 .p-rev{margin-top:18px}
 .p-rev h3,.p-decide h3{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sec);margin-bottom:8px}
@@ -1013,7 +1023,7 @@ const HOJE_ISO = iso(HOJE);
 let META_CLIENTES = 10;
 
 /* ---------- vocabulário ---------- */
-const ETAPAS = [
+const ETAPAS_V2 = [
   { id: "ideia",       nome: "Ideia",            curto: "Ideia",        cor: "rgba(184,167,188,.5)" },
   { id: "pauta",       nome: "Pauta",            curto: "Pauta",        cor: "#B8A7BC" },
   { id: "texto",       nome: "Texto/Roteiro",    curto: "Texto/ Roteiro", cor: "#D4AE9C" },
@@ -1025,8 +1035,28 @@ const ETAPAS = [
   { id: "publicado",   nome: "Publicado",        curto: "Publicado",    cor: "#2F1B36" },
   { id: "ajustes",     nome: "Ajustes",          curto: "Ajustes",      cor: "#3C203F", tipo: "dash", raia: true }
 ];
-const ET = Object.fromEntries(ETAPAS.map((e) => [e.id, e]));
-const FLUXO = ETAPAS.filter((e) => !e.raia);
+// API 2.3.0 (recurso "etapas_v3"): só 4 etapas. Os ids reaproveitam os da v2
+// (aprovacao/agendado/publicado) para o resto da tela seguir igual.
+const ETAPAS_V3 = [
+  { id: "criacao",     nome: "Em criação",       curto: "Em criação",   cor: "#B8A7BC", sub: "A equipe está fazendo" },
+  { id: "aprovacao",   nome: "Para aprovar",     curto: "Para aprovar", cor: "#3C203F", dest: true, sub: "Lucas ou Mileny decidem" },
+  { id: "agendado",    nome: "Aprovado",         curto: "Aprovado",     cor: "#2F1B36", tipo: "ring", sub: "Esperando a data de postar" },
+  { id: "publicado",   nome: "No ar",            curto: "No ar",        cor: "#2F1B36", sub: "Já publicado" }
+];
+// nomes antigos que ainda podem vir de uma planilha não migrada
+const ETAPA_ANTIGA_V3 = { "Ideia": "criacao", "Pauta": "criacao", "Texto/Roteiro": "criacao", "Validação Mila": "criacao", "Produção": "criacao", "Conferência Mila": "criacao", "Ajustes": "criacao",
+  "Aprovação Lucas": "aprovacao", "Agendado": "agendado", "Publicado": "publicado" };
+let V3 = false, ETAPAS = ETAPAS_V2, ET = {}, FLUXO = [], ETN = {};
+function usarEtapas(v3) {
+  V3 = !!v3; ETAPAS = V3 ? ETAPAS_V3 : ETAPAS_V2;
+  ET = Object.fromEntries(ETAPAS.map((e) => [e.id, e]));
+  FLUXO = ETAPAS.filter((e) => !e.raia);
+  // v2 (API 2.2.0) também entende os nomes novos, caso a planilha já tenha sido migrada
+  const novosV2 = { "Em criação": "producao", "Para aprovar": "aprovacao", "Aprovado": "agendado", "No ar": "publicado" };
+  ETN = Object.assign(V3 ? { ...ETAPA_ANTIGA_V3 } : novosV2, Object.fromEntries(ETAPAS.map((e) => [e.nome, e.id])));
+}
+usarEtapas(false);
+const QUEM_APROVA = () => (V3 ? "Lucas ou Mileny" : "o Lucas");
 const PILARES = [
   { id: "01", nome: "Insatisfação",          cor: "#3C203F" },
   { id: "02", nome: "Padrões",               cor: "#5E3C66" },
@@ -1114,7 +1144,9 @@ const ui = {
   calCor: "etapa",
   filtros: { q: "", responsavel: "", formato: "", pilar: "" }, ig: "semana", cliEtapa: "", cliQ: "", painelId: null, tarAgente: ""
 };
-const souAprovador = () => usuario.papel === "aprovador";
+const souAprovador = () => usuario.papel === "aprovador" || (V3 && usuario.pode_aprovar === true);
+const IDEIAS_DEC = () => V3 && API_RECURSOS.indexOf("ideias_aprovacao") >= 0;
+const ideiaAguarda = (i) => IDEIAS_DEC() && i.estado === "Nova" && !i.postId;
 const SEM_SERVIDOR = false;
 // ---------- acesso por chave pessoal ----------
 // A chave vem do link pessoal (?k=...) ou do campo de entrada e fica guardada
@@ -1197,7 +1229,6 @@ function iniciarAcesso() {
   });
 }
 // planilha → tela
-const ETN = Object.fromEntries(ETAPAS.map((e) => [e.nome, e.id]));
 const FUN = Object.fromEntries(FUNIL.map((f) => [f.nome, f.id]));
 const DEPN = Object.fromEntries(DEPO.map(([a, b]) => [b, a]));
 const pilarCod = (s) => { const m = String(s || "").match(/^\d{2}/); return m && PI[m[0]] ? m[0] : ""; };
@@ -1207,14 +1238,20 @@ const capi = (s) => (s ? s[0].toUpperCase() + s.slice(1) : "");
 function dePost(o) {
   const links = String(o.links || "").split(/\s+/).filter(Boolean);
   return { id: o.id, data: o.data_prevista || "", titulo: o.titulo || "(sem título)", formato: FORMATOS.includes(o.formato) ? o.formato : "Reel",
-    pilar: pilarCod(o.pilar), campanha: o.campanha || "", responsavel: o.responsavel || "", status: ETN[o.etapa] || "ideia",
+    pilar: pilarCod(o.pilar), campanha: o.campanha || "", responsavel: o.responsavel || "", status: ETN[o.etapa] || ETAPAS[0].id,
     desde: o.etapa_desde || String(o.atualizado_em || "").slice(0, 10) || HOJE_ISO, notas: o.notas || "", link: links[0] || "", links,
     aprov: o.status_aprovacao || "", aprovCom: o.comentarios_aprovacao || "", por: o.atualizado_por || "", em: o.atualizado_em || "", ideiaId: o.ideia_id || "",
     pub: o.data_publicacao || "", enviadoEm: o.enviado_aprovacao_em || "" };
 }
+function estadoIdeia(s) {
+  const v = s || "Nova";
+  if (!V3) return v;
+  return v === "Validada Mila" ? "Nova" : v === "Descartada" ? "Recusada" : v;
+}
 function deIdeia(o) {
   return { id: o.id, titulo: o.titulo || "", nota: o.nota || "", gancho: o.gancho || "", ref: String(o.referencia || "").split(/\s+/).filter(Boolean)[0] || "",
-    origem: o.origem || "Equipe", pilar: pilarCod(o.pilar), formato: o.formato || "", postId: o.post_id || "", estado: o.status || "Nova" };
+    origem: o.origem || "Equipe", pilar: pilarCod(o.pilar), formato: o.formato || "", postId: o.post_id || "", estado: estadoIdeia(o.status),
+    decPor: o.decidido_por || "", decCom: o.comentario_decisao || "" };
 }
 function deCliente(o) {
   return { id: o.id, nome: o.nome || "", origem: o.origem || "", etapa: FUN[o.etapa_funil] || "lead", plano: minus(o.plano), inicio: o.inicio || "",
@@ -1228,7 +1265,7 @@ function paraCliente(d) {
 }
 function paraPost(d) {
   return { titulo: d.titulo, data_prevista: d.data, formato: d.formato, pilar: pilarRot(d.pilar), responsavel: d.responsavel, campanha: d.campanha,
-    etapa: ET[d.status] ? ET[d.status].nome : "Ideia", links: d.link, notas: d.notas, ...(API_NOVA && d.data_publicacao !== undefined ? { data_publicacao: d.data_publicacao } : {}) };
+    etapa: ET[d.status] ? ET[d.status].nome : ETAPAS[0].nome, links: d.link, notas: d.notas, ...(API_NOVA && d.data_publicacao !== undefined ? { data_publicacao: d.data_publicacao } : {}) };
 }
 const upsert = (lista, obj) => { const i = lista.findIndex((x) => x.id === obj.id); if (i >= 0) lista[i] = obj; else lista.push(obj); };
 function aplicar(r) {
@@ -1255,6 +1292,7 @@ function recarregar(silencioso) {
       if (Array.isArray(r.config.pessoas) && r.config.pessoas.length) PESSOAS.splice(0, PESSOAS.length, ...r.config.pessoas);
     }
     API_VERSAO = r.versao || "2.0.0"; API_NOVA = verGE(API_VERSAO, API_MIN_NOVA); API_RECURSOS = r.recursos || [];
+    usarEtapas(API_RECURSOS.indexOf("etapas_v3") >= 0);
     db = { posts: (r.posts || []).map(dePost), ideias: (r.ideias || []).map(deIdeia), clientes: (r.clientes || []).map(deCliente),
       tarefas: (r.tarefas || []).map(deTarefa), instagram: (r.instagram || []).slice().sort((a, b) => String(a.semana_inicio).localeCompare(String(b.semana_inicio))),
       acomp: API_NOVA ? (r.acompanhamentos || []).map(deAcomp) : [] };
@@ -1328,9 +1366,16 @@ const VIEWS = [
   { id: "tarefas", nome: "Tarefas", curto: "Tarefas" }
 ];
 function rAguarda() {
-  const n = db.posts.filter((p) => p.status === "aprovacao").length, b = $("#b-aguarda"), mostra = souAprovador() && n > 0;
-  if (b) { b.hidden = !mostra; $("#b-aguarda-n").textContent = n; b.setAttribute("aria-label", `Aguardando você: ${n} ${n === 1 ? "peça" : "peças"} para aprovar`); }
-  document.title = (mostra ? `(${n}) ` : "") + `${(VIEWS.find((v) => v.id === ui.view) || VIEWS[0]).nome} · Mileny Matos · Estúdio`;
+  const n = db.posts.filter((p) => p.status === "aprovacao").length, b = $("#b-aguarda");
+  const ni = souAprovador() ? db.ideias.filter(ideiaAguarda).length : 0;
+  const mostra = souAprovador() && (n > 0 || ni > 0);
+  if (b) {
+    b.hidden = !mostra; $("#b-aguarda-n").textContent = n;
+    let ai = $("#b-aguarda-i"); if (!ai) { b.insertAdjacentHTML("beforeend", ` <span class="ai" id="b-aguarda-i" hidden></span>`); ai = $("#b-aguarda-i"); }
+    ai.hidden = !ni; ai.textContent = ni ? `+ ${ni} ${ni === 1 ? "ideia" : "ideias"}` : "";
+    b.setAttribute("aria-label", `Aguardando você: ${n} ${n === 1 ? "peça" : "peças"} para aprovar${ni ? ` e ${ni} ${ni === 1 ? "ideia nova" : "ideias novas"}` : ""}`);
+  }
+  document.title = (mostra && n ? `(${n}) ` : "") + `${(VIEWS.find((v) => v.id === ui.view) || VIEWS[0]).nome} · Mileny Matos · Estúdio`;
 }
 // movimento: liga uma classe por um instante (entrada escalonada da vista, abertura do detalhe)
 function pulso(el, cls, ms) {
@@ -1342,7 +1387,9 @@ function rNav() {
   rAguarda();
   const paradas = db.posts.filter((p) => p.status === "aprovacao").length;
   const item = (v, curto) => {
-    const c = v.id === "pipeline" && paradas ? `<span class="cont" aria-hidden="true">${paradas}</span><span class="sr">, ${paradas} em aprovação</span>` : "";
+    const ni = v.id === "ideias" && souAprovador() ? db.ideias.filter(ideiaAguarda).length : 0;
+    const c = v.id === "pipeline" && paradas ? `<span class="cont" aria-hidden="true">${paradas}</span><span class="sr">, ${paradas} em aprovação</span>`
+      : ni ? `<span class="cont" aria-hidden="true">${ni}</span><span class="sr">, ${ni} ${ni === 1 ? "ideia nova" : "ideias novas"} para avaliar</span>` : "";
     return `<a href="#${v.id}" ${ui.view === v.id ? 'aria-current="page"' : ""}>${ic(v.id)}<span>${curto ? v.curto : v.nome}</span>${c}<span class="tecla" aria-hidden="true">${VIEWS.indexOf(v) + 1}</span></a>`;
   };
   $("#nav").innerHTML = VIEWS.map((v) => item(v, false)).join("");
@@ -1388,7 +1435,7 @@ function rVisao() {
   const paradas = db.posts.filter((p) => p.status === "aprovacao").sort((a, b) => a.desde.localeCompare(b.desde));
   const n = paradas.length;
   $("#h-visao").innerHTML = n
-    ? `${n} ${n === 1 ? "peça aguarda" : "peças aguardam"} a <em class="pena">aprovação</em> do Lucas.`
+    ? (V3 ? `${n} ${n === 1 ? "peça aguarda" : "peças aguardam"} <em class="pena">aprovação</em>${souAprovador() ? "" : " de Lucas ou Mileny"}.` : `${n} ${n === 1 ? "peça aguarda" : "peças aguardam"} a <em class="pena">aprovação</em> do Lucas.`)
     : `Nada parado em <em class="pena">aprovação</em>. Tudo em dia.`;
   const prox = db.posts.filter((p) => p.data >= HOJE_ISO && p.status !== "publicado").sort((a, b) => a.data.localeCompare(b.data));
   const px = prox[0];
@@ -1417,6 +1464,7 @@ function rVisao() {
       <span class="k-h">${x.h}</span>
     </a>`).join("");
 
+  { const h = $("#h-apr"); if (h) h.textContent = V3 ? (souAprovador() ? "Na sua mesa" : "Para aprovar") : "Na mesa do Lucas"; }
   $("#lista-apr").innerHTML = n ? paradas.map((p) => `
     <li>
       <div class="l-d" aria-hidden="true">${p.data ? `<b>${pd(p.data).getDate()}</b><span>${MES3[pd(p.data).getMonth()]}</span>` : "<b>—</b><span>data</span>"}</div>
@@ -1426,7 +1474,7 @@ function rVisao() {
       </div>
       <div class="l-a">${souAprovador() ? `
         <button class="btn sec peq" type="button" data-act="ajustar" data-id="${p.id}" aria-label="Pedir ajustes em ${esc(p.titulo)}">Ajustes</button>
-        <button class="btn pri peq" type="button" data-act="aprovar" data-id="${p.id}" aria-label="Aprovar e agendar ${esc(p.titulo)}">Aprovar</button>` : `<span class="fmt">${ic("relogio", "p")}com o Lucas</span>`}
+        <button class="btn pri peq" type="button" data-act="aprovar" data-id="${p.id}" aria-label="${V3 ? "Aprovar" : "Aprovar e agendar"} ${esc(p.titulo)}">Aprovar</button>` : `<span class="fmt">${ic("relogio", "p")}${V3 ? "com Lucas ou Mileny" : "com o Lucas"}</span>`}
       </div>
     </li>`).join("") : `<li class="vazio"><div><span class="serif">Mesa limpa.</span>Nenhuma peça esperando aprovação.</div></li>`;
 
@@ -1610,7 +1658,7 @@ const chip = (p) => {
 const cardPost = (p) => `<button type="button" class="pc" data-abrir="${p.id}">
   <span class="pc-top">${fmt(p.formato)}${quem(p.responsavel)}</span>
   <span class="pc-t">${esc(p.titulo)}</span>
-  <span class="pc-m">${tagEtapa(p.status)}${tagPilar(p.pilar)}</span></button>`;
+  <span class="pc-m">${tagEtapa(p.status)}${V3 && p.status === "criacao" && p.aprov === "Ajustes pedidos" ? `<span class="tag ajuste">Ajustes pedidos</span>` : ""}${tagPilar(p.pilar)}</span></button>`;
 function rCal() {
   const lista = filtrados().sort((a, b) => dataCal(a).localeCompare(dataCal(b)));
   const porDia = {};
@@ -1667,9 +1715,9 @@ function rCal() {
     </div>
     ${corpo}
     <div class="cal-leg" aria-label="Legenda">
-      ${ui.calCor === "pilar" || !mesModo ? PILARES.map((p) => `<span>${dot(p)}${p.id} ${esc(p.nome)}</span>`).join("") + `<span class="so-d"><i class="am" aria-hidden="true"></i>aguardando o Lucas</span>`
+      ${ui.calCor === "pilar" || !mesModo ? PILARES.map((p) => `<span>${dot(p)}${p.id} ${esc(p.nome)}</span>`).join("") + `<span class="so-d"><i class="am" aria-hidden="true"></i>${V3 ? "aguardando aprovação" : "aguardando o Lucas"}</span>`
         : ETAPAS.map((e) => `<span>${dot(e)}${esc(e.nome)}</span>`).join("")}
-      <span class="so-d">${ic("ok", "p")}publicado (na data de publicação)</span>
+      <span class="so-d">${ic("ok", "p")}${V3 ? "no ar" : "publicado"} (na data de publicação)</span>
       ${mesModo && (usuario.papel === "aprovador" || usuario.papel === "admin") ? `<span class="dica">Arraste um post para outro dia para remarcar.</span>` : ""}
     </div>`;
 }
@@ -1679,18 +1727,19 @@ let kb = null; // card "pego" pelo teclado: { id, origem }
 const kcard = (p) => {
   const pego = kb && kb.id === p.id;
   return `<article class="kcard ${pego ? "pego" : ""}" tabindex="0" role="button" aria-roledescription="card arrastável" aria-pressed="${pego ? "true" : "false"}" data-id="${p.id}"
-    aria-label="${esc(p.titulo)}. ${esc(p.formato)}, ${fCurta(p.data)}. Etapa ${esc(ET[p.status].nome)}. Responsável ${esc(p.responsavel)}.">
+    aria-label="${esc(p.titulo)}. ${esc(p.formato)}, ${fCurta(p.data)}. Etapa ${esc(ET[p.status].nome)}.${V3 && p.aprov === "Ajustes pedidos" && p.status === "criacao" ? " Ajustes pedidos." : ""} Responsável ${esc(p.responsavel)}.">
     <div class="k-top">${fmt(p.formato)}<span class="data">${fCurta(p.data)}</span></div>
     <h4 class="k-tit">${esc(p.titulo)}</h4>
     <div class="k-pe">${tagPilar(p.pilar)}${quem(p.responsavel)}</div>
     ${p.status === "aprovacao" ? `<div class="k-par">${ic("relogio", "p")}parada ${ha(p.desde)}</div>` : ""}
     ${p.status === "ajustes" ? `<div class="k-par">${ic("volta", "p")}volta para Produção</div>` : ""}
+    ${V3 && p.status === "criacao" && p.aprov === "Ajustes pedidos" ? `<div class="k-par"><span class="tag ajuste">${ic("volta", "p")}Ajustes pedidos</span></div>` : ""}
   </article>`;
 };
 function rPipeline() {
   const lista = filtrados().sort((a, b) => a.data.localeCompare(b.data));
   const de = (id) => lista.filter((p) => p.status === id);
-  $("#quadro").innerHTML = `<div class="quadro-in">${FLUXO.map((e) => {
+  $("#quadro").innerHTML = `<div class="quadro-in ${V3 ? "v3" : ""}">${FLUXO.map((e) => {
     const ps = de(e.id);
     return `<section class="kcol ${e.dest ? "dest dark" : ""}" data-etapa="${e.id}" aria-label="${esc(e.nome)}, ${ps.length} ${ps.length === 1 ? "peça" : "peças"}">
       <div class="kcol-h">${e.dest ? ic("alerta", "p") : dot(e)}<h3>${esc(e.nome)}</h3><span class="n" aria-hidden="true">${ps.length}</span></div>
@@ -1699,6 +1748,7 @@ function rPipeline() {
     </section>`;
   }).join("")}</div>`;
   const aj = de("ajustes");
+  if (V3) { $("#raia").innerHTML = ""; return; }
   $("#raia").innerHTML = `<section class="raia" data-etapa="ajustes" aria-label="Raia de ajustes, ${aj.length} ${aj.length === 1 ? "peça" : "peças"}">
     <div class="raia-h">${ic("volta")}<h3>Ajustes</h3><p>Peças devolvidas pela Mila ou pelo Lucas. Depois do ajuste, voltam para Produção.</p><span class="n" aria-hidden="true">${aj.length}</span></div>
     <div class="raia-b">${aj.length ? aj.map(kcard).join("") : `<div class="solte">Solte aqui o que precisa de ajuste</div>`}</div>
@@ -1926,19 +1976,23 @@ function formAcomp(cid, manter) {
 function rIdeias() {
   const sel = $("#ideia-o");
   if (!sel.options.length) sel.innerHTML = ORIGENS_IDEIA.map((o) => `<option>${esc(o)}</option>`).join("");
-  const vivas = db.ideias.filter((i) => i.estado !== "Descartada").sort((a, b) => (a.postId ? 1 : 0) - (b.postId ? 1 : 0));
+  const ordemI = (i) => (i.postId ? 3 : !IDEIAS_DEC() ? 0 : i.estado === "Nova" ? 0 : i.estado === "Aprovada" ? 1 : 2);
+  const vivas = db.ideias.filter((i) => i.estado !== "Descartada" && i.estado !== "Recusada").sort((a, b) => ordemI(a) - ordemI(b));
   $("#ideias").innerHTML = vivas.length ? vivas.map((i, n) => {
     const feita = i.postId && post(i.postId);
-    return `<article class="card ideia ${feita ? "feita" : ""}">
+    const dec = IDEIAS_DEC(), aguarda = !feita && ideiaAguarda(i), aprovada = dec && !feita && i.estado === "Aprovada";
+    const acoes = feita ? `<span class="fmt">${ic("ok", "p")}Virou post · ${esc(ET[feita.status].nome)}</span><button type="button" class="lk" data-abrir="${feita.id}">Ver o post</button>`
+      : !dec ? `<button type="button" class="btn pri peq" data-act="virar" data-id="${i.id}" aria-label="Virar post: ${esc(i.titulo)}">Virar post ${ic("seta", "p")}</button><button type="button" class="lk" data-act="apagar-ideia" data-id="${i.id}" aria-label="Descartar ideia: ${esc(i.titulo)}">Descartar</button>`
+      : aguarda ? (souAprovador() ? `<div class="i-dec" role="group" aria-label="Decidir: ${esc(i.titulo)}"><button type="button" class="btn pri peq" data-act="ideia-aprovar" data-id="${i.id}" aria-label="Aprovar ideia: ${esc(i.titulo)}">${ic("ok", "p")}Aprovar</button><button type="button" class="btn sec peq" data-act="ideia-recusar" data-id="${i.id}" aria-label="Recusar ideia: ${esc(i.titulo)}">Recusar</button></div>` : `<span class="fmt">${ic("relogio", "p")}aguardando Lucas ou Mileny</span>`)
+      : aprovada ? `<button type="button" class="btn pri peq" data-act="virar" data-id="${i.id}" aria-label="Virar post: ${esc(i.titulo)}">Virar post ${ic("seta", "p")}</button>${souAprovador() ? `<button type="button" class="lk" data-act="ideia-recusar" data-id="${i.id}" aria-label="Recusar ideia: ${esc(i.titulo)}">Recusar</button>` : ""}`
+      : "";
+    return `<article class="card ideia ${feita ? "feita" : ""} ${aguarda ? "nova-dec" : ""}">
       <div class="i-n"><span>Nº ${z2(n + 1)}</span><span class="tag ${i.origem === "Radar de tendências" ? "radar" : "linha"}" style="font-family:var(--sans);font-style:normal">${i.origem === "Radar de tendências" ? ic("radar", "p") : ""}${esc(i.origem)}</span></div>
       <h3>${esc(i.titulo)}</h3>
       ${i.gancho ? `<p><em>Gancho:</em> “${esc(i.gancho)}”</p>` : ""}
       ${i.nota ? `<p>${esc(i.nota)}</p>` : ""}
-      <div class="i-m">${i.pilar ? tagPilar(i.pilar) : ""}${i.formato ? fmt(i.formato) : ""}${i.estado === "Validada Mila" ? `<span class="tag forte">${ic("ok", "p")}Validada pela Mila</span>` : ""}${i.ref ? `<a class="lk" href="${esc(i.ref)}" target="_blank" rel="noopener noreferrer">Ver referência<span class="sr"> (abre em nova aba)</span></a>` : ""}</div>
-      <div class="i-a">
-        ${feita ? `<span class="fmt">${ic("ok", "p")}Virou post · ${esc(ET[feita.status].nome)}</span><button type="button" class="lk" data-abrir="${feita.id}">Ver o post</button>`
-                : `<button type="button" class="btn pri peq" data-act="virar" data-id="${i.id}" aria-label="Virar post: ${esc(i.titulo)}">Virar post ${ic("seta", "p")}</button><button type="button" class="lk" data-act="apagar-ideia" data-id="${i.id}" aria-label="Descartar ideia: ${esc(i.titulo)}">Descartar</button>`}
-      </div>
+      <div class="i-m">${i.pilar ? tagPilar(i.pilar) : ""}${i.formato ? fmt(i.formato) : ""}${!IDEIAS_DEC() && i.estado === "Validada Mila" ? `<span class="tag forte">${ic("ok", "p")}Validada pela Mila</span>` : ""}${IDEIAS_DEC() && !feita && i.estado === "Aprovada" ? `<span class="tag forte" title="${esc(i.decCom)}">${ic("ok", "p")}Aprovada${i.decPor ? " por " + esc(i.decPor) : ""}</span>` : ""}${aguarda ? `<span class="tag linha">Nova · para avaliar</span>` : ""}${i.ref ? `<a class="lk" href="${esc(i.ref)}" target="_blank" rel="noopener noreferrer">Ver referência<span class="sr"> (abre em nova aba)</span></a>` : ""}</div>
+      <div class="i-a">${acoes}</div>
     </article>`;
   }).join("") : `<div class="card vazio" style="column-span:all;break-inside:avoid;padding:40px"><span class="serif">O banco está vazio.</span>Anote a primeira ideia no campo acima.</div>`;
 }
@@ -1957,7 +2011,7 @@ function virarPost(id) {
   for (let k = 0; k < 120 && ocupadas.has(iso(livre)); k++) livre = mais(livre, 1); // primeiro dia sem post
   let tit = i.titulo.replace(/^Formato em alta:\s*/i, "").replace(/^[“"]|[”"]$/g, "").trim() || i.titulo;
   tit = tit[0].toUpperCase() + tit.slice(1);
-  enviar("ideia.virarPost", { id, data_prevista: iso(livre), pilar: i.pilar || "01" }, (r) => `“${r.post.titulo}” entrou no pipeline, em Pauta, com data sugerida de ${fCurta(r.post.data_prevista)}.`)
+  enviar("ideia.virarPost", { id, data_prevista: iso(livre), pilar: i.pilar || "01" }, (r) => `“${r.post.titulo}” entrou no pipeline, em ${esc(r.post.etapa || "Pauta")}, com data sugerida de ${fCurta(r.post.data_prevista)}.`)
     .then((r) => { if (!r) return; const b = $(`.ideia [data-abrir="${r.post.id}"]`); if (b) b.focus(); });
 }
 
@@ -2048,7 +2102,9 @@ function rPainel() {
   const i = FLUXO.findIndex((e) => e.id === p.status), aj = p.status === "ajustes";
   const prox = aj ? ET.producao : FLUXO[i + 1];
   const decide = p.status === "aprovacao" && souAprovador();
-  const rotProx = aj ? "Devolver para Produção" : p.status === "aprovacao" ? "" : (prox && prox.id === "agendado" && !souAprovador()) ? "" : prox ? `Avançar para ${prox.nome}` : "";
+  const rotProx = aj ? "Devolver para Produção" : p.status === "aprovacao" ? "" : (prox && prox.id === "agendado" && !souAprovador()) ? ""
+    : V3 && p.status === "criacao" ? "Enviar para aprovar" : V3 && p.status === "agendado" ? "Marcar como No ar" : prox ? `Avançar para ${prox.nome}` : "";
+  const flagAj = V3 && p.status === "criacao" && p.aprov === "Ajustes pedidos";
   $("#painel").innerHTML = `
     <div class="p-h">
       <p class="eyebrow">${fmt(p.formato)} <span>${p.data ? `${fCurta(p.data)} · ${DOW3[pd(p.data).getDay()]}` : "sem data"}</span></p>
@@ -2059,9 +2115,10 @@ function rPainel() {
       <div class="fio" aria-hidden="true"></div>
       <div class="p-et">
         <label for="p-etapa">Etapa no pipeline</label>
-        <select id="p-etapa">${ETAPAS.map((e) => `<option value="${e.id}" ${e.id === p.status ? "selected" : ""} ${e.id === "agendado" && !souAprovador() && p.status !== "agendado" ? "disabled" : ""}>${esc(e.nome)}${e.id === "agendado" && !souAprovador() ? " (só o Lucas)" : ""}</option>`).join("")}</select>
+        <select id="p-etapa">${ETAPAS.map((e) => `<option value="${e.id}" ${e.id === p.status ? "selected" : ""} ${e.id === "agendado" && !souAprovador() && p.status !== "agendado" ? "disabled" : ""}>${esc(e.nome)}${e.id === "agendado" && !souAprovador() ? ` (só ${V3 ? "Lucas ou Mileny" : "o Lucas"})` : ""}</option>`).join("")}</select>
         ${aj ? "" : `<div class="trilha" aria-hidden="true">${FLUXO.map((e, j) => `<i class="${j <= i ? "ok" : ""}"></i>`).join("")}</div>`}
         <p class="desde">${aj ? "Em ajustes" : `Etapa ${i + 1} de ${FLUXO.length}`} · nesta etapa ${ha(p.desde)}</p>
+        ${flagAj ? `<p class="desde"><span class="tag ajuste">${ic("volta", "p")}Ajustes pedidos</span></p>` : ""}
       </div>
       <div class="p-rev"><h3>Peça para revisar</h3>${previa(p)}</div>
       ${decide ? `<div class="p-decide" role="group" aria-labelledby="p-dec-t">
@@ -2071,14 +2128,14 @@ function rPainel() {
         <span class="erro" id="p-com-e" hidden></span>
         <div class="p-dec-b">
           <button class="btn sec" type="button" data-act="p-ajustes" data-id="${p.id}">Pedir ajustes</button>
-          <button class="btn pri" type="button" data-act="p-aprovar" data-id="${p.id}">Aprovar e agendar</button>
-        </div></div>` : p.status === "aprovacao" ? `<p class="p-espera">${ic("relogio", "p")}Com o Lucas para aprovação · ${ha(p.desde)}.</p>` : ""}
+          <button class="btn pri" type="button" data-act="p-aprovar" data-id="${p.id}">${V3 ? "Aprovar" : "Aprovar e agendar"}</button>
+        </div></div>` : p.status === "aprovacao" ? `<p class="p-espera">${ic("relogio", "p")}${V3 ? "Com Lucas ou Mileny" : "Com o Lucas"} para aprovação · ${ha(p.desde)}.</p>` : ""}
       <dl class="dl">
         <dt>Pilar</dt><dd>${tagPilar(p.pilar)}</dd>
         <dt>Campanha</dt><dd>${p.campanha ? esc(p.campanha) : "—"}</dd>
         <dt>Responsável</dt><dd>${quem(p.responsavel)}</dd>
         <dt>Data</dt><dd>${fLonga(p.data)}</dd>
-        ${p.pub ? `<dt>Publicado em</dt><dd>${fLonga(p.pub)}</dd>` : ""}
+        ${p.pub ? `<dt>${V3 ? "No ar desde" : "Publicado em"}</dt><dd>${fLonga(p.pub)}</dd>` : ""}
         <dt>Aprovação</dt><dd>${p.aprov ? esc(p.aprov) : "—"}</dd>
         <dt>Atualizado</dt><dd>${p.por ? `${esc(p.por)}${p.em ? " · " + fNum(p.em.slice(0, 10)) + " " + esc(p.em.slice(11, 16)) : ""}` : "—"}</dd>
       </dl>
@@ -2087,7 +2144,7 @@ function rPainel() {
     </div>
     <div class="p-f">
       ${rotProx ? `<button class="btn pri" type="button" data-act="avancar" data-id="${p.id}">${rotProx}</button>` : ""}
-      ${!aj && !decide && p.status !== "publicado" && p.status !== "ideia" ? `<button class="btn sec" type="button" data-act="ajustar" data-id="${p.id}">Pedir ajustes</button>` : ""}
+      ${!aj && !decide && p.status !== "publicado" && p.status !== "ideia" && !(V3 && p.status === "criacao") ? `<button class="btn sec" type="button" data-act="ajustar" data-id="${p.id}">Pedir ajustes</button>` : ""}
       <button class="btn fan esp" type="button" data-act="editar-post" data-id="${p.id}">Editar</button>
       <button class="btn fan" type="button" data-act="excluir-post" data-id="${p.id}">Excluir</button>
     </div>`;
@@ -2166,7 +2223,7 @@ function formPost(id) {
     num: "Conteúdo · pipeline", titulo: ed ? "Editar post" : "Novo post", rotulo: ed ? "Salvar alterações" : "Criar post",
     intro: ed ? "Ajuste os dados do post." : "O post entra no pipeline na etapa escolhida.",
     extra: `<datalist id="dl-camp">${camp.map((c) => `<option value="${esc(c)}">`).join("")}</datalist>`,
-    valores: ed ? { ...ed, link: ed.links, data_publicacao: ed.pub } : { data: ui.view === "calendario" && ui.selDia ? ui.selDia : HOJE_ISO, status: "ideia", formato: "", pilar: "", responsavel: "" },
+    valores: ed ? { ...ed, link: ed.links, data_publicacao: ed.pub } : { data: ui.view === "calendario" && ui.selDia ? ui.selDia : HOJE_ISO, status: ETAPAS[0].id, formato: "", pilar: "", responsavel: "" },
     campos: [
       { name: "titulo", label: "Título ou gancho", req: true, full: true, max: 110, ph: "Ex.: Sua cabeça tem 47 abas abertas", aj: "Até 12 palavras no gancho." },
       { name: "data", label: "Data de publicação", type: "date", req: true },
@@ -2176,7 +2233,7 @@ function formPost(id) {
       { name: "campanha", label: "Campanha", max: 60, lista: "dl-camp", ph: "Ex.: Método SER" },
       { name: "status", label: "Etapa", type: "select", op: ETAPAS.map((e) => [e.id, e.nome]) },
       { name: "link", label: "Links da peça (vídeo, arte, roteiro)", type: "links", aj: "Drive, YouTube, Canva, Instagram… Um link por campo, sempre com https://. Caminho de arquivo do computador não funciona: suba no Drive e cole o link." },
-      ...(API_NOVA ? [{ name: "data_publicacao", label: "Publicado em", type: "date", aj: "Preenchida sozinha quando a peça vai para Publicado." }] : []),
+      ...(API_NOVA ? [{ name: "data_publicacao", label: V3 ? "No ar desde" : "Publicado em", type: "date", aj: V3 ? "Preenchida sozinha quando a peça vai para No ar." : "Preenchida sozinha quando a peça vai para Publicado." }] : []),
       { name: "notas", label: "Notas da equipe", type: "textarea", full: true, aj: "Orientações de produção. Sem promessa de cura, prazo ou garantia." }
     ],
     validar: (d) => {
@@ -2188,11 +2245,11 @@ function formPost(id) {
       if (!PESSOAS.includes(d.responsavel)) e.responsavel = "Escolha quem responde pela peça.";
       if (d.link && d.link.split(/\s+/).some((l) => !/^https:\/\/[^\s/]+\.\S+/.test(l))) e.link = "Cada link precisa ser completo e começar com https://.";
       if (d.data_publicacao && !dataOk(d.data_publicacao)) e.data_publicacao = "Data inválida.";
-      if (d.status === "agendado" && !souAprovador() && (!ed || ed.status !== "agendado")) e.status = "Só o Lucas leva uma peça para Agendado.";
+      if (d.status === "agendado" && !souAprovador() && (!ed || ed.status !== "agendado")) e.status = V3 ? "Só Lucas ou Mileny aprovam." : "Só o Lucas leva uma peça para Agendado.";
       return e;
     },
     aoSalvar: (d) => {
-      if (!ET[d.status]) d.status = "ideia";
+      if (!ET[d.status]) d.status = ETAPAS[0].id;
       fecharCamada($("#c-modal")); garantirFoco();
       avisar("Salvando…");
       if (ed) enviar("post.atualizar", { id: ed.id, ...paraPost(d) }, "Post atualizado.");
@@ -2245,14 +2302,15 @@ function formCliente(id) {
 function formAjustes(id) {
   const p = post(id); if (!p) return;
   abrirForm({
-    num: "Pipeline · ajustes", titulo: "Pedir ajustes", rotulo: "Enviar para Ajustes",
+    num: "Pipeline · ajustes", titulo: "Pedir ajustes", rotulo: V3 ? "Devolver com ajustes" : "Enviar para Ajustes",
     intro: `“${esc(p.titulo)}” volta para a equipe com o seu comentário.`,
     valores: {}, campos: [{ name: "comentario", label: "O que precisa mudar?", type: "textarea", req: true, full: true, aj: "Fica registrado nos comentários de aprovação." }],
     validar: (d) => (d.comentario.length < 3 ? { comentario: "Escreva o que precisa ajustar." } : {}),
     aoSalvar: (d) => {
       fecharCamada($("#c-modal")); garantirFoco();
-      p.status = "ajustes"; p.desde = HOJE_ISO; rTudo();
-      enviar("post.ajustes", { id, comentario: d.comentario }, `“${p.titulo}” foi para Ajustes.`);
+      if (V3) { p.status = "criacao"; p.aprov = "Ajustes pedidos"; } else p.status = "ajustes";
+      p.desde = HOJE_ISO; rTudo();
+      enviar("post.ajustes", { id, comentario: d.comentario }, V3 ? `“${p.titulo}” voltou para Em criação, com ajustes pedidos.` : `“${p.titulo}” foi para Ajustes.`);
     }
   });
 }
@@ -2339,6 +2397,7 @@ document.addEventListener("click", (e) => {
     case "sair": sair(); break;
     case "aguarda": {
       const fila = db.posts.filter((p) => p.status === "aprovacao").sort((a, b) => a.desde.localeCompare(b.desde));
+      if (!fila.length && db.ideias.some(ideiaAguarda)) { location.hash = "#ideias"; setTimeout(() => { const t = $("#ideias [data-act=ideia-aprovar]"); if (t) { t.scrollIntoView({ block: "center", behavior: "smooth" }); t.focus({ preventScroll: true }); } }, 60); break; }
       if (fila.length === 1) abrirPainel(fila[0].id);
       else { location.hash = "#visao"; setTimeout(() => { const l = $("#lista-apr"); if (l) { l.scrollIntoView({ block: "center", behavior: "smooth" }); const t = $("#lista-apr .l-t"); if (t) t.focus({ preventScroll: true }); } }, 60); }
       break;
@@ -2356,11 +2415,12 @@ document.addEventListener("click", (e) => {
       break;
     }
     case "p-aprovar": case "p-ajustes": {
-      if (!souAprovador()) { avisar("Só o Lucas decide."); break; }
+      if (!souAprovador()) { avisar(`Só ${QUEM_APROVA()} ${V3 ? "decidem" : "decide"}.`); break; }
       const p = post(id); if (!p) break;
       const com = ($("#p-com") || {}).value ? $("#p-com").value.trim() : "";
       if (act === "p-ajustes" && com.length < 3) { const er = $("#p-com-e"); er.textContent = "Escreva o que precisa ajustar."; er.hidden = false; $("#p-com").setAttribute("aria-invalid", "true"); $("#p-com").focus(); break; }
-      if (act === "p-aprovar") { p.status = "agendado"; p.desde = HOJE_ISO; rTudo(); enviar("post.aprovar", com ? { id, comentario: com } : { id }, `“${p.titulo}” aprovado e agendado.`); }
+      if (act === "p-aprovar") { p.status = "agendado"; p.aprov = "Aprovado"; p.desde = HOJE_ISO; rTudo(); enviar("post.aprovar", com ? { id, comentario: com } : { id }, V3 ? `“${p.titulo}” aprovado.` : `“${p.titulo}” aprovado e agendado.`); }
+      else if (V3) { p.status = "criacao"; p.aprov = "Ajustes pedidos"; p.desde = HOJE_ISO; rTudo(); enviar("post.ajustes", { id, comentario: com }, `“${p.titulo}” voltou para Em criação, com o seu pedido de ajustes.`); }
       else { p.status = "ajustes"; p.desde = HOJE_ISO; rTudo(); enviar("post.ajustes", { id, comentario: com }, `“${p.titulo}” foi para Ajustes, com o seu comentário.`); }
       const f = $("#p-fechar"); if (f) f.focus();
       break;
@@ -2381,10 +2441,10 @@ document.addEventListener("click", (e) => {
       break;
     }
     case "aprovar": {
-      if (!souAprovador()) { avisar("Só o Lucas aprova."); break; }
+      if (!souAprovador()) { avisar(`Só ${QUEM_APROVA()} ${V3 ? "aprovam" : "aprova"}.`); break; }
       const p = post(id); if (!p) break;
-      p.status = "agendado"; p.desde = HOJE_ISO; rTudo();
-      enviar("post.aprovar", { id }, `“${p.titulo}” aprovado e agendado.`);
+      p.status = "agendado"; p.aprov = "Aprovado"; p.desde = HOJE_ISO; rTudo();
+      enviar("post.aprovar", { id }, V3 ? `“${p.titulo}” aprovado.` : `“${p.titulo}” aprovado e agendado.`);
       break;
     }
     case "ajustar": formAjustes(id); break;
@@ -2415,6 +2475,17 @@ document.addEventListener("click", (e) => {
       break;
     }
     case "virar": virarPost(id); break;
+    case "ideia-aprovar": case "ideia-recusar": {
+      if (!souAprovador()) { avisar("Só Lucas ou Mileny decidem as ideias."); break; }
+      const i = db.ideias.find((x) => x.id === id); if (!i) break;
+      const sim = act === "ideia-aprovar";
+      i.estado = sim ? "Aprovada" : "Recusada"; i.decPor = usuario.nome || "";
+      rIdeias(); rNav();
+      enviar(sim ? "ideia.aprovar" : "ideia.recusar", { id }, sim ? `Ideia aprovada: “${i.titulo}”. Já pode virar post.` : `Ideia recusada: “${i.titulo}”.`);
+      const alvo = sim ? $(`#ideias [data-act=virar][data-id="${id}"]`) : ($("#ideias [data-act=ideia-aprovar]") || $("#ideia-t"));
+      if (alvo) alvo.focus({ preventScroll: !sim });
+      break;
+    }
     case "apagar-ideia": { const i = db.ideias.find((x) => x.id === id); if (i) i.estado = "Descartada"; rIdeias(); $("#ideia-t").focus(); enviar("ideia.descartar", { id }, "Ideia descartada."); break; }
     case "ig": ui.ig = v; rIG(); break;
     case "limpar": ui.filtros = { q: "", responsavel: "", formato: "", pilar: "" }; sincFiltros(); rCal(); rPipeline(); { const q = $("[data-f=q]", b.closest("[data-filtros]")); if (q) q.focus(); } break;
