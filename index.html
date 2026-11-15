@@ -613,6 +613,53 @@ td .mudo{color:var(--sec)}
 .i-dec{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .ideia.nova-dec{border-color:rgba(60,32,63,.35)}
 .aguarda b{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 7px;border-radius:999px;background:var(--creme);color:var(--ameixa);font-size:12px;font-weight:600}
+.btn.grande{min-height:54px;padding:12px 30px;font-size:16px}
+/* ---------- 2.3.0: sugerir post e plano de pré-produção ---------- */
+.sugerir-c{position:relative;overflow:hidden;border-radius:22px;background-color:var(--ameixa);background-image:var(--grao-claro);color:var(--creme);padding:30px 34px;margin-bottom:30px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.sugerir-c[hidden]{display:none}
+.sugerir-c h2{font-family:var(--serif);font-weight:500;font-size:clamp(26px,2.6vw,34px);line-height:1.08}
+.sugerir-c p{margin-top:8px;color:var(--creme-80);font-size:14.5px;max-width:56ch}
+.sugerir-c .btn .icone{width:18px;height:18px}
+.planos{margin-bottom:34px}
+.planos[hidden]{display:none}
+.planos-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+.planos-h h2{font-family:var(--serif);font-weight:500;font-size:30px;color:var(--violeta)}
+.planos-h .n{display:inline-grid;place-items:center;min-width:28px;height:28px;padding:0 9px;border-radius:999px;background:var(--cobre);color:var(--creme);font-family:var(--sans);font-size:13px;font-weight:600}
+.planos-h p{color:var(--sec);font-size:14px;flex-basis:100%}
+.planos-l{display:flex;flex-direction:column;gap:18px;margin-top:16px}
+.plano{padding:26px 28px;border-color:rgba(167,94,72,.45);border-left:3px solid var(--cobre);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:20px 30px}
+.plano .pl-top{grid-column:1/-1;display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.plano h3{font-family:var(--serif);font-weight:600;font-size:27px;line-height:1.1;color:var(--violeta);margin-top:6px}
+.plano .pl-meta{font-size:13px;color:var(--sec)}
+.plano h4{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sec);margin-bottom:10px}
+.ops{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;min-width:0}
+.ops legend{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sec);margin-bottom:10px;padding:0}
+.op{display:grid;grid-template-columns:22px minmax(0,1fr);gap:4px 12px;padding:14px 16px;border-radius:var(--raio-s);border:1.5px solid var(--linha);background:var(--creme);cursor:pointer;transition:border-color .18s,background-color .18s}
+.op:hover{border-color:var(--linha-forte)}
+.op:has(input:checked){border-color:var(--ameixa);background:var(--papel);box-shadow:0 0 0 3px var(--lav-22)}
+.op input{grid-row:1/3;width:18px;height:18px;margin-top:3px;accent-color:var(--ameixa)}
+.op b{font-weight:600;font-size:15px;color:var(--carvao)}
+.op b .op-n{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--cobre);margin-right:6px}
+.op .op-t{font-size:13.5px;color:var(--sec);white-space:pre-wrap;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.op:has(input:checked) .op-t{-webkit-line-clamp:unset;display:block}
+.pl-vis p{font-size:14px;color:var(--carvao);white-space:pre-wrap}
+.pl-vis .i-m{margin-top:12px;display:flex;gap:6px 10px;flex-wrap:wrap;align-items:center}
+.pl-sug{grid-column:1/-1;font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.35;color:var(--violeta);padding-left:16px;border-left:2px solid var(--lavanda)}
+.pl-sug small{display:block;font-family:var(--sans);font-style:normal;font-size:12.5px;color:var(--sec);margin-top:6px}
+.pl-a{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-top:16px;border-top:1px solid var(--linha)}
+.pl-a .erro{flex-basis:100%}
+.pl-a .lk{margin-left:auto}
+.passos{list-style:none;display:flex;gap:0;margin:0;padding:0;font-size:11.5px;letter-spacing:.04em;color:var(--sec)}
+.passos li{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.passos li+li::before{content:"";width:18px;height:1px;background:var(--linha-forte);margin:0 6px}
+.passos li i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--linha-forte);background:transparent;flex:none}
+.passos li.feito i{background:var(--lavanda);border-color:var(--lavanda)}
+.passos li.atual{color:var(--ameixa);font-weight:600}
+.passos li.atual i{background:var(--cobre);border-color:var(--cobre);box-shadow:0 0 0 3px rgba(167,94,72,.18)}
+.ideia .passos{margin:-2px 0 2px;flex-wrap:wrap;row-gap:4px}
+.ideia blockquote{font-family:var(--serif);font-style:italic;font-size:16.5px;line-height:1.35;color:var(--violeta);padding-left:12px;border-left:2px solid var(--lavanda)}
+.ideia .i-aj{font-size:13px;color:var(--cobre)}
+@media (max-width:900px){.plano{grid-template-columns:1fr;padding:22px 20px}.sugerir-c{padding:24px 22px}.passos li+li::before{width:10px;margin:0 4px}}
 .p-rev{margin-top:18px}
 .p-rev h3,.p-decide h3{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--sec);margin-bottom:8px}
 .prev{display:flex;flex-direction:column;gap:12px}
@@ -773,7 +820,8 @@ body.arrastando-cal,body.arrastando-cal *{cursor:grabbing!important;user-select:
               <h1 id="h-visao" tabindex="-1"></h1>
               <p class="lede" id="hero-lede"></p>
               <div class="hero-a">
-                <button class="btn pri" type="button" data-act="novo-post">Novo post</button>
+                <button class="btn pri" type="button" data-act="sugerir" id="b-sugerir-h" hidden>Sugerir post</button>
+                <button class="btn pri" type="button" data-act="novo-post" id="b-novo-h">Novo post</button>
               </div>
             </div>
             <svg class="hero-onda" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
@@ -939,6 +987,11 @@ body.arrastando-cal,body.arrastando-cal *{cursor:grabbing!important;user-select:
             </div>
             <div class="fio" aria-hidden="true"></div>
           </header>
+          <div class="sugerir-c" id="sugerir-c" hidden>
+            <div><h2>Viu algo que daria um bom post?</h2><p>Mande o link ou escreva do seu jeito. A Sol transforma em plano, com opções de roteiro e o visual, e traz para você aprovar.</p></div>
+            <button class="btn pri grande" type="button" data-act="sugerir">Sugerir post</button>
+          </div>
+          <section class="planos" id="planos" aria-labelledby="h-planos" hidden></section>
           <form class="nova-ideia" id="form-ideia" novalidate>
             <div class="cp"><label for="ideia-t">Nova ideia</label><input type="text" id="ideia-t" maxlength="110" placeholder="Escreva a ideia em uma frase" autocomplete="off" aria-describedby="ideia-e"></div>
             <div class="cp"><label for="ideia-o">Origem</label><select id="ideia-o"></select></div>
@@ -1146,7 +1199,14 @@ const ui = {
 };
 const souAprovador = () => usuario.papel === "aprovador" || (V3 && usuario.pode_aprovar === true);
 const IDEIAS_DEC = () => V3 && API_RECURSOS.indexOf("ideias_aprovacao") >= 0;
-const ideiaAguarda = (i) => IDEIAS_DEC() && i.estado === "Nova" && !i.postId;
+const PLANO = () => V3 && API_RECURSOS.indexOf("plano_aprovacao") >= 0 && API_RECURSOS.indexOf("sugerir_post") >= 0;
+const ideiaAguarda = (i) => PLANO() ? i.estado === "Plano para aprovar" && !i.postId : IDEIAS_DEC() && i.estado === "Nova" && !i.postId;
+const PASSOS_IDEIA = ["Sugestão", "Plano", "Aprovação", "Post"];
+const passoIdeia = (i) => (i.postId || i.estado === "Virou post" ? 4 : i.estado === "Plano aprovado" ? 3 : i.estado === "Plano para aprovar" ? 2 : i.estado === "Plano em preparo" ? 1 : 0);
+function passos(i) {
+  const k = passoIdeia(i);
+  return `<ol class="passos" aria-label="Andamento: ${esc(PASSOS_IDEIA[Math.min(k, 3)])}">${PASSOS_IDEIA.map((n, j) => `<li class="${j < k ? "feito" : j === k ? "atual" : ""}" ${j === k ? 'aria-current="step"' : ""}><i aria-hidden="true"></i>${n}</li>`).join("")}</ol>`;
+}
 const SEM_SERVIDOR = false;
 // ---------- acesso por chave pessoal ----------
 // A chave vem do link pessoal (?k=...) ou do campo de entrada e fica guardada
@@ -1246,12 +1306,21 @@ function dePost(o) {
 function estadoIdeia(s) {
   const v = s || "Nova";
   if (!V3) return v;
+  if (PLANO()) return v === "Nova" || v === "Validada Mila" ? "Sugestão" : v === "Aprovada" ? "Plano aprovado" : v === "Descartada" ? "Recusada" : v;
   return v === "Validada Mila" ? "Nova" : v === "Descartada" ? "Recusada" : v;
 }
 function deIdeia(o) {
   return { id: o.id, titulo: o.titulo || "", nota: o.nota || "", gancho: o.gancho || "", ref: String(o.referencia || "").split(/\s+/).filter(Boolean)[0] || "",
     origem: o.origem || "Equipe", pilar: pilarCod(o.pilar), formato: o.formato || "", postId: o.post_id || "", estado: estadoIdeia(o.status),
-    decPor: o.decidido_por || "", decCom: o.comentario_decisao || "" };
+    decPor: o.decidido_por || "", decCom: o.comentario_decisao || "",
+    sug: o.sugestao || "", refs: String(o.referencia || "").split(/\s+/).filter(Boolean), roteiros: lerRoteiros(o.roteiros), visual: o.plano_visual || "",
+    plinks: String(o.plano_links || "").split(/\s+/).filter(Boolean), planoPor: o.plano_por || "", planoEm: o.plano_enviado_em || "", opcao: o.opcao_escolhida || "", ajustes: o.plano_ajustes || "" };
+}
+function lerRoteiros(v) {
+  if (Array.isArray(v)) return v.filter((r) => r && r.texto);
+  const s = String(v || "").trim(); if (!s) return [];
+  try { const a = JSON.parse(s); if (Array.isArray(a)) return a.filter((r) => r && r.texto); } catch (e) {}
+  return [{ titulo: "Opção 1", texto: s }];
 }
 function deCliente(o) {
   return { id: o.id, nome: o.nome || "", origem: o.origem || "", etapa: FUN[o.etapa_funil] || "lead", plano: minus(o.plano), inicio: o.inicio || "",
@@ -1372,8 +1441,9 @@ function rAguarda() {
   if (b) {
     b.hidden = !mostra; $("#b-aguarda-n").textContent = n;
     let ai = $("#b-aguarda-i"); if (!ai) { b.insertAdjacentHTML("beforeend", ` <span class="ai" id="b-aguarda-i" hidden></span>`); ai = $("#b-aguarda-i"); }
-    ai.hidden = !ni; ai.textContent = ni ? `+ ${ni} ${ni === 1 ? "ideia" : "ideias"}` : "";
-    b.setAttribute("aria-label", `Aguardando você: ${n} ${n === 1 ? "peça" : "peças"} para aprovar${ni ? ` e ${ni} ${ni === 1 ? "ideia nova" : "ideias novas"}` : ""}`);
+    const pl = PLANO(), un = pl ? (ni === 1 ? "plano" : "planos") : (ni === 1 ? "ideia" : "ideias");
+    ai.hidden = !ni; ai.textContent = ni ? `+ ${ni} ${un}` : "";
+    b.setAttribute("aria-label", `Aguardando você: ${n} ${n === 1 ? "peça" : "peças"} para aprovar${ni ? ` e ${ni} ${pl ? un + " para aprovar" : (ni === 1 ? "ideia nova" : "ideias novas")}` : ""}`);
   }
   document.title = (mostra && n ? `(${n}) ` : "") + `${(VIEWS.find((v) => v.id === ui.view) || VIEWS[0]).nome} · Mileny Matos · Estúdio`;
 }
@@ -1389,7 +1459,7 @@ function rNav() {
   const item = (v, curto) => {
     const ni = v.id === "ideias" && souAprovador() ? db.ideias.filter(ideiaAguarda).length : 0;
     const c = v.id === "pipeline" && paradas ? `<span class="cont" aria-hidden="true">${paradas}</span><span class="sr">, ${paradas} em aprovação</span>`
-      : ni ? `<span class="cont" aria-hidden="true">${ni}</span><span class="sr">, ${ni} ${ni === 1 ? "ideia nova" : "ideias novas"} para avaliar</span>` : "";
+      : ni ? `<span class="cont" aria-hidden="true">${ni}</span><span class="sr">, ${ni} ${PLANO() ? (ni === 1 ? "plano" : "planos") + " para aprovar" : (ni === 1 ? "ideia nova" : "ideias novas") + " para avaliar"}</span>` : "";
     return `<a href="#${v.id}" ${ui.view === v.id ? 'aria-current="page"' : ""}>${ic(v.id)}<span>${curto ? v.curto : v.nome}</span>${c}<span class="tecla" aria-hidden="true">${VIEWS.indexOf(v) + 1}</span></a>`;
   };
   $("#nav").innerHTML = VIEWS.map((v) => item(v, false)).join("");
@@ -1465,7 +1535,18 @@ function rVisao() {
     </a>`).join("");
 
   { const h = $("#h-apr"); if (h) h.textContent = V3 ? (souAprovador() ? "Na sua mesa" : "Para aprovar") : "Na mesa do Lucas"; }
-  $("#lista-apr").innerHTML = n ? paradas.map((p) => `
+  { const bs = $("#b-sugerir-h"), bn = $("#b-novo-h"); if (bs) { bs.hidden = !PLANO(); bn.className = PLANO() ? "btn sec" : "btn pri"; } }
+  const planosM = PLANO() ? db.ideias.filter(ideiaAguarda) : [];
+  const liPlanos = planosM.map((i) => `
+    <li>
+      <div class="l-d" aria-hidden="true"><b>${i.roteiros.length || "—"}</b><span>${i.roteiros.length === 1 ? "opção" : "opções"}</span></div>
+      <div class="l-c">
+        <button class="l-t" type="button" data-act="ir-plano" data-id="${i.id}">${esc(i.titulo)}</button>
+        <div class="l-m"><span class="tag linha">Plano</span><span class="fmt">${ic("relogio", "p")}${i.planoPor ? esc(i.planoPor) + " · " : ""}${i.planoEm ? ha(i.planoEm.slice(0, 10)) : "aguardando"}</span></div>
+      </div>
+      <div class="l-a">${souAprovador() ? `<button class="btn pri peq" type="button" data-act="ir-plano" data-id="${i.id}" aria-label="Escolher roteiro de ${esc(i.titulo)}">Escolher roteiro</button>` : `<span class="fmt">${ic("relogio", "p")}com Lucas ou Mileny</span>`}</div>
+    </li>`).join("");
+  $("#lista-apr").innerHTML = (n || planosM.length) ? paradas.map((p) => `
     <li>
       <div class="l-d" aria-hidden="true">${p.data ? `<b>${pd(p.data).getDate()}</b><span>${MES3[pd(p.data).getMonth()]}</span>` : "<b>—</b><span>data</span>"}</div>
       <div class="l-c">
@@ -1476,7 +1557,7 @@ function rVisao() {
         <button class="btn sec peq" type="button" data-act="ajustar" data-id="${p.id}" aria-label="Pedir ajustes em ${esc(p.titulo)}">Ajustes</button>
         <button class="btn pri peq" type="button" data-act="aprovar" data-id="${p.id}" aria-label="${V3 ? "Aprovar" : "Aprovar e agendar"} ${esc(p.titulo)}">Aprovar</button>` : `<span class="fmt">${ic("relogio", "p")}${V3 ? "com Lucas ou Mileny" : "com o Lucas"}</span>`}
       </div>
-    </li>`).join("") : `<li class="vazio"><div><span class="serif">Mesa limpa.</span>Nenhuma peça esperando aprovação.</div></li>`;
+    </li>`).join("") + liPlanos : `<li class="vazio"><div><span class="serif">Mesa limpa.</span>Nenhuma peça esperando aprovação.</div></li>`;
 
   $("#lista-prox").innerHTML = prox.length ? prox.slice(0, 5).map((p) => `
     <li>
@@ -1974,6 +2055,8 @@ function formAcomp(cid, manter) {
 
 /* ---------- ideias ---------- */
 function rIdeias() {
+  if (PLANO()) return rIdeiasPlano();
+  $("#sugerir-c").hidden = true; $("#planos").hidden = true; $("#form-ideia").hidden = false;
   const sel = $("#ideia-o");
   if (!sel.options.length) sel.innerHTML = ORIGENS_IDEIA.map((o) => `<option>${esc(o)}</option>`).join("");
   const ordemI = (i) => (i.postId ? 3 : !IDEIAS_DEC() ? 0 : i.estado === "Nova" ? 0 : i.estado === "Aprovada" ? 1 : 2);
@@ -1995,6 +2078,112 @@ function rIdeias() {
       <div class="i-a">${acoes}</div>
     </article>`;
   }).join("") : `<div class="card vazio" style="column-span:all;break-inside:avoid;padding:40px"><span class="serif">O banco está vazio.</span>Anote a primeira ideia no campo acima.</div>`;
+}
+// 2.3.0 com plano: Sugestão → Plano em preparo (Sol) → Plano para aprovar → Plano aprovado → post
+function rIdeiasPlano() {
+  $("#sugerir-c").hidden = false; $("#form-ideia").hidden = true;
+  const ap = souAprovador();
+  const planos = db.ideias.filter(ideiaAguarda).sort((a, b) => String(a.planoEm).localeCompare(String(b.planoEm)));
+  const sec = $("#planos");
+  sec.hidden = !planos.length;
+  sec.innerHTML = planos.length ? `
+    <div class="planos-h"><h2 id="h-planos">Planos para aprovar</h2><span class="n" aria-hidden="true">${planos.length}</span>
+      <p>${ap ? "Escolha o roteiro e aprove: o post nasce na hora, em Em criação, com o roteiro e o visual escolhidos." : "Esperando Lucas ou Mileny escolherem o roteiro."}</p></div>
+    <div class="planos-l">${planos.map(cardPlano).join("")}</div>` : "";
+  const ordem = (i) => (i.postId ? 4 : i.estado === "Plano aprovado" ? 0 : i.estado === "Plano em preparo" ? 1 : 2);
+  const vivas = db.ideias.filter((i) => i.estado !== "Recusada" && i.estado !== "Descartada" && !ideiaAguarda(i)).sort((a, b) => ordem(a) - ordem(b));
+  $("#ideias").innerHTML = vivas.length ? vivas.map((i, n) => {
+    const feita = i.postId && post(i.postId);
+    const ultAj = i.ajustes ? i.ajustes.split("\n").pop() : "";
+    const acoes = feita ? `<span class="fmt">${ic("ok", "p")}Virou post · ${esc(ET[feita.status].nome)}</span><button type="button" class="lk" data-abrir="${feita.id}">Ver o post</button>`
+      : i.estado === "Plano aprovado" ? `<button type="button" class="btn pri peq" data-act="virar" data-id="${i.id}" aria-label="Virar post: ${esc(i.titulo)}">Virar post ${ic("seta", "p")}</button>`
+      : `<span class="fmt">${ic("relogio", "p")}${i.estado === "Plano em preparo" ? "Sol preparando o plano" : "Com a Sol: vira plano"}</span>${ap ? `<button type="button" class="lk" data-act="ideia-recusar" data-id="${i.id}" aria-label="Recusar: ${esc(i.titulo)}">Recusar</button>` : ""}`;
+    return `<article class="card ideia ${feita ? "feita" : ""}">
+      <div class="i-n"><span>Nº ${z2(n + 1)}</span><span class="tag ${i.origem === "Radar de tendências" ? "radar" : "linha"}" style="font-family:var(--sans);font-style:normal">${i.origem === "Radar de tendências" ? ic("radar", "p") : ""}${esc(i.origem)}</span></div>
+      ${passos(i)}
+      <h3>${esc(i.titulo)}</h3>
+      ${i.sug && i.sug !== i.titulo ? `<blockquote>“${esc(i.sug.length > 220 ? i.sug.slice(0, 217) + "…" : i.sug)}”</blockquote>` : ""}
+      ${i.gancho ? `<p><em>Gancho:</em> “${esc(i.gancho)}”</p>` : ""}
+      ${i.nota ? `<p>${esc(i.nota)}</p>` : ""}
+      ${!feita && i.estado === "Plano em preparo" && ultAj ? `<p class="i-aj"><span class="tag ajuste">${ic("volta", "p")}Ajuste pedido</span> ${esc(ultAj.replace(/^\[[^\]]*\]\s*/, ""))}</p>` : ""}
+      <div class="i-m">${i.pilar ? tagPilar(i.pilar) : ""}${i.formato ? fmt(i.formato) : ""}${!feita && i.estado === "Plano aprovado" ? `<span class="tag forte" title="${esc(i.decCom)}">${ic("ok", "p")}Plano aprovado${i.decPor ? " por " + esc(i.decPor) : ""}</span>` : ""}${i.refs.slice(0, 2).map((u, k) => `<a class="lk" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${k ? "Outra referência" : "Ver referência"}<span class="sr"> (abre em nova aba)</span></a>`).join("")}</div>
+      <div class="i-a">${acoes}</div>
+    </article>`;
+  }).join("") : `<div class="card vazio" style="column-span:all;break-inside:avoid;padding:40px"><span class="serif">Nada no banco agora.</span>Use “Sugerir post” para mandar a próxima.</div>`;
+}
+function cardPlano(i) {
+  const ap = souAprovador(), n = i.roteiros.length;
+  const ops = n ? i.roteiros.map((r, k) => `
+      <label class="op"><input type="radio" name="op-${i.id}" value="${k + 1}" ${n === 1 || String(k + 1) === String(i.opcao) ? "checked" : ""} ${ap ? "" : "disabled"}>
+        <b><span class="op-n">Opção ${k + 1}</span>${esc(r.titulo && !/^Opção \d$/.test(r.titulo) ? r.titulo : "")}</b>
+        <span class="op-t">${esc(r.texto)}</span></label>`).join("") : `<p class="prev-vazio">Sem roteiro anexado.</p>`;
+  const links = i.plinks.concat(i.refs).slice(0, 4);
+  return `<article class="card plano" data-plano="${i.id}" aria-labelledby="pl-t-${i.id}">
+    <div class="pl-top"><div><p class="eyebrow">Plano · ${esc(i.origem)}</p><h3 id="pl-t-${i.id}">${esc(i.titulo)}</h3>
+      <p class="pl-meta">${i.planoPor ? `Preparado por ${esc(i.planoPor)}` : "Plano"}${i.planoEm ? ` · enviado ${diasDesde(i.planoEm.slice(0, 10)) === 0 ? "hoje" : ha(i.planoEm.slice(0, 10))}` : ""}</p></div>${passos(i)}</div>
+    ${i.sug && i.sug !== i.titulo ? `<blockquote class="pl-sug">“${esc(i.sug)}”<small>Sugestão de ${esc(i.origem)}</small></blockquote>` : ""}
+    <fieldset class="ops"><legend>${n > 1 ? `Escolha o roteiro (${n} opções)` : "Roteiro"}</legend>${ops}</fieldset>
+    <div class="pl-vis"><h4>Plano visual</h4><p>${esc(i.visual || "—")}</p>
+      <div class="i-m">${i.formato ? fmt(i.formato) : ""}${i.pilar ? tagPilar(i.pilar) : ""}${links.map((u) => `<a class="lk" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc((infoLink(u) || {}).nome || "Abrir link")}<span class="sr"> (abre em nova aba)</span></a>`).join("")}</div></div>
+    <div class="pl-a">${ap ? `
+      <button type="button" class="btn pri" data-act="plano-aprovar" data-id="${i.id}">${ic("ok", "p")}Aprovar plano</button>
+      <button type="button" class="btn sec" data-act="plano-ajuste" data-id="${i.id}">Pedir ajuste</button>
+      <button type="button" class="lk" data-act="ideia-recusar" data-id="${i.id}" aria-label="Recusar plano: ${esc(i.titulo)}">Recusar</button>
+      <span class="erro" id="op-e-${i.id}" role="alert" hidden></span>` : `<span class="fmt">${ic("relogio", "p")}aguardando Lucas ou Mileny</span>`}</div>
+  </article>`;
+}
+document.addEventListener("change", (e) => { const c = e.target.closest && e.target.closest("[data-plano]"); if (c) { const er = $("#op-e-" + c.dataset.plano); if (er) er.hidden = true; } });
+const linkOk = (u) => /^https:\/\/[^\s\/]+\.[^\s]+$/.test(u);
+function formSugerir() {
+  abrirForm({
+    num: "Ideias · sugerir post", titulo: "Sugerir post", rotulo: "Enviar sugestão",
+    intro: "Mande o link do que você viu e/ou escreva a ideia do seu jeito. A Sol transforma em plano (opções de roteiro e visual) e traz para você aprovar.",
+    valores: {}, campos: [
+      { name: "link", label: "Link (post, vídeo, matéria…)", type: "url", full: true, ph: "https://www.instagram.com/reel/…" },
+      { name: "texto", label: "Nas suas palavras", type: "textarea", full: true, max: 2000, aj: "O que chamou sua atenção, o que você quer dizer. Pode ser solto." },
+      { name: "referencia", label: "Outra referência (opcional)", type: "url", full: true, ph: "https://…" }
+    ],
+    validar: (d) => {
+      const e = {};
+      if (!d.link && !d.texto) e.texto = "Mande um link ou escreva a ideia.";
+      if (d.link && !linkOk(d.link)) e.link = "Cole o link completo, começando com https://.";
+      if (d.referencia && !linkOk(d.referencia)) e.referencia = "Cole o link completo, começando com https://.";
+      return e;
+    },
+    aoSalvar: (d) => {
+      fecharCamada($("#c-modal")); garantirFoco();
+      const dados = { texto: d.texto }; if (d.link) dados.link = d.link; if (d.referencia) dados.referencia = d.referencia;
+      enviar("ideia.sugerir", dados, "Sugestão enviada. A Sol transforma em plano e traz para você aprovar.");
+    }
+  });
+}
+function formAjustePlano(id) {
+  const i = db.ideias.find((x) => x.id === id); if (!i) return;
+  abrirForm({
+    num: "Ideias · plano", titulo: "Pedir ajuste no plano", rotulo: "Devolver para a Sol",
+    intro: `“${esc(i.titulo)}” volta para Plano em preparo, com o seu comentário.`,
+    valores: {}, campos: [{ name: "comentario", label: "O que precisa mudar?", type: "textarea", req: true, full: true, aj: "A Sol ajusta e manda de novo." }],
+    validar: (d) => (d.comentario.length < 3 ? { comentario: "Escreva o que precisa ajustar." } : {}),
+    aoSalvar: (d) => {
+      fecharCamada($("#c-modal"));
+      i.estado = "Plano em preparo"; i.ajustes = (i.ajustes ? i.ajustes + "\n" : "") + d.comentario; rIdeias(); rNav(); rVisao(); focoView();
+      enviar("ideia.pedirAjuste", { id, comentario: d.comentario }, `Plano devolvido para a Sol: “${i.titulo}”.`);
+    }
+  });
+}
+function aprovarPlano(id) {
+  const i = db.ideias.find((x) => x.id === id); if (!i) return;
+  const card = $(`[data-plano="${id}"]`), marcado = card && card.querySelector("input[type=radio]:checked"), er = $("#op-e-" + id);
+  if (i.roteiros.length > 1 && !marcado) {
+    if (er) { er.textContent = "Escolha uma das opções de roteiro antes de aprovar."; er.hidden = false; }
+    const r1 = card && card.querySelector("input[type=radio]"); if (r1) r1.focus(); return;
+  }
+  const ocupadas = new Set(db.posts.map((p) => p.data));
+  let livre = mais(HOJE, 1);
+  for (let k = 0; k < 120 && ocupadas.has(iso(livre)); k++) livre = mais(livre, 1);
+  const dados = { id, data_prevista: iso(livre) }; if (marcado) dados.opcao = Number(marcado.value);
+  i.estado = "Virou post"; rIdeias(); rNav(); rVisao(); focoView();
+  enviar("ideia.aprovarPlano", dados, (r) => `Plano aprovado${dados.opcao ? ` (opção ${dados.opcao})` : ""}. “${r.post.titulo}” entrou em Em criação, com data sugerida de ${fCurta(r.post.data_prevista)}.`);
 }
 $("#form-ideia").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -2172,7 +2361,7 @@ function campo(f, val) {
       ${f.aj ? `<span class="aj" id="${id}-a">${esc(f.aj)}</span>` : ""}<span class="erro" id="${id}-e" hidden></span></div>`;
   }
   if (f.type === "select") c = `<select ${com}>${f.op.map((o) => { const [a, b] = Array.isArray(o) ? o : [o, o]; return `<option value="${esc(a)}" ${String(a) === String(v) ? "selected" : ""}>${esc(b)}</option>`; }).join("")}</select>`;
-  else if (f.type === "textarea") c = `<textarea ${com} maxlength="400">${esc(v)}</textarea>`;
+  else if (f.type === "textarea") c = `<textarea ${com} maxlength="${f.max || 400}">${esc(v)}</textarea>`;
   else c = `<input type="${f.type || "text"}" ${com} value="${esc(v)}" ${f.max ? `maxlength="${f.max}"` : ""} ${f.type === "number" ? 'min="0" step="1" inputmode="numeric"' : ""} ${f.ph ? `placeholder="${esc(f.ph)}"` : ""} ${f.lista ? `list="${f.lista}"` : ""} autocomplete="off">`;
   return `<div class="campo ${f.full ? "full" : ""}"><label for="${id}">${esc(f.label)}${f.req ? ' <span class="req" aria-hidden="true">*</span>' : ""}</label>${c}${f.aj ? `<span class="aj" id="${id}-a">${esc(f.aj)}</span>` : ""}<span class="erro" id="${id}-e" hidden></span></div>`;
 }
@@ -2397,7 +2586,7 @@ document.addEventListener("click", (e) => {
     case "sair": sair(); break;
     case "aguarda": {
       const fila = db.posts.filter((p) => p.status === "aprovacao").sort((a, b) => a.desde.localeCompare(b.desde));
-      if (!fila.length && db.ideias.some(ideiaAguarda)) { location.hash = "#ideias"; setTimeout(() => { const t = $("#ideias [data-act=ideia-aprovar]"); if (t) { t.scrollIntoView({ block: "center", behavior: "smooth" }); t.focus({ preventScroll: true }); } }, 60); break; }
+      if (!fila.length && db.ideias.some(ideiaAguarda)) { location.hash = "#ideias"; setTimeout(() => { const t = $("#planos input[type=radio]:not(:checked)") || $("#planos [data-act=plano-aprovar]") || $("#ideias [data-act=ideia-aprovar]"); if (t) { t.scrollIntoView({ block: "center", behavior: "smooth" }); t.focus({ preventScroll: true }); } }, 60); break; }
       if (fila.length === 1) abrirPainel(fila[0].id);
       else { location.hash = "#visao"; setTimeout(() => { const l = $("#lista-apr"); if (l) { l.scrollIntoView({ block: "center", behavior: "smooth" }); const t = $("#lista-apr .l-t"); if (t) t.focus({ preventScroll: true }); } }, 60); }
       break;
@@ -2475,14 +2664,23 @@ document.addEventListener("click", (e) => {
       break;
     }
     case "virar": virarPost(id); break;
+    case "sugerir": formSugerir(); break;
+    case "plano-aprovar": if (!souAprovador()) { avisar("Só Lucas ou Mileny aprovam planos."); break; } aprovarPlano(id); break;
+    case "plano-ajuste": if (!souAprovador()) { avisar("Só Lucas ou Mileny pedem ajustes."); break; } formAjustePlano(id); break;
+    case "ir-plano": {
+      location.hash = "#ideias";
+      setTimeout(() => { const c = $(`[data-plano="${id}"]`); if (!c) return; c.scrollIntoView({ block: "start", behavior: "smooth" }); const t = c.querySelector("input[type=radio]:not(:disabled)") || c.querySelector("[data-act=plano-aprovar]"); if (t) t.focus({ preventScroll: true }); }, 60);
+      break;
+    }
     case "ideia-aprovar": case "ideia-recusar": {
       if (!souAprovador()) { avisar("Só Lucas ou Mileny decidem as ideias."); break; }
       const i = db.ideias.find((x) => x.id === id); if (!i) break;
       const sim = act === "ideia-aprovar";
       i.estado = sim ? "Aprovada" : "Recusada"; i.decPor = usuario.nome || "";
       rIdeias(); rNav();
-      enviar(sim ? "ideia.aprovar" : "ideia.recusar", { id }, sim ? `Ideia aprovada: “${i.titulo}”. Já pode virar post.` : `Ideia recusada: “${i.titulo}”.`);
-      const alvo = sim ? $(`#ideias [data-act=virar][data-id="${id}"]`) : ($("#ideias [data-act=ideia-aprovar]") || $("#ideia-t"));
+      if (PLANO() && !sim) rVisao();
+      enviar(sim ? "ideia.aprovar" : "ideia.recusar", { id }, sim ? `Ideia aprovada: “${i.titulo}”. Já pode virar post.` : `${PLANO() ? "Recusada" : "Ideia recusada"}: “${i.titulo}”.`);
+      const alvo = sim ? $(`#ideias [data-act=virar][data-id="${id}"]`) : PLANO() ? ($("#planos [data-act=plano-aprovar]") || $("#h-ideias")) : ($("#ideias [data-act=ideia-aprovar]") || $("#ideia-t"));
       if (alvo) alvo.focus({ preventScroll: !sim });
       break;
     }
